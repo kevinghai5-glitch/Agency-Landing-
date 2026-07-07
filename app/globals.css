@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light only;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #fbfaf7; /* bg */
+  color: #1a1814; /* ink */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Big scorecard numbers: serif, gold, tabular figures. */
+.stat-number {
+  font-family: var(--font-serif), Georgia, serif;
+  color: #9a7b3f; /* accent */
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* Scan checklist: subtle pulse used only while holding on the last step. */
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+.animate-soft-pulse {
+  animation: soft-pulse 1.4s ease-in-out infinite;
+}
+
+/* Checklist tick reveal — a single restrained transition, no bounce. */
+@keyframes tick-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-tick-in {
+  animation: tick-in 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-soft-pulse,
+  .animate-tick-in {
+    animation: none;
+  }
+}
