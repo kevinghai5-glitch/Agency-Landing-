@@ -17,9 +17,10 @@ interface ScanFormProps {
 }
 
 /**
- * The two-field + one-button unit. This exact component is reused by the hero
- * (section 1) and the final CTA (section 10) — a convinced scroller can act
- * without scrolling back up.
+ * The two-field + one-button unit: business name + website. The name sharpens
+ * the Google listing match; the website drives the audit. This exact component
+ * is reused by the hero (section 1) and the final CTA (section 10) — a convinced
+ * scroller can act without scrolling back up.
  */
 export default function ScanForm({
   onSubmit,
@@ -46,7 +47,12 @@ export default function ScanForm({
   const siteId = `${idPrefix}-website`;
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-xl mx-auto" noValidate>
+    <form
+      onSubmit={handleSubmit}
+      className="w-full max-w-xl mx-auto"
+      noValidate
+      data-quiet=""
+    >
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-1">
           <label htmlFor={nameId} className="sr-only">

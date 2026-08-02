@@ -1,4 +1,5 @@
 import { fetchWithTimeout } from "./fetchWithTimeout";
+import { domainRoot } from "./validateUrl";
 import type { ScanResult } from "./types";
 
 const PLACES_TIMEOUT_MS = 5_000;
@@ -15,6 +16,10 @@ type ReviewsResult = NonNullable<ScanResult["reviews"]>;
  * Find the business on Google, pull its review count + rating, then find ONE
  * same-category competitor nearby and pull their review count.
  *
+ * The typed business name is the primary signal for the Places match; we pair
+ * it with the hostname to disambiguate. If the name is blank, we fall back to
+ * the domain root (e.g. "joespizza") so the lookup still has something to go on.
+ *
  * Returns null (not a throw) when no listing is found — the frontend simply
  * skips the review card. Throws only on hard API failure so allSettled logs it.
  */
@@ -23,9 +28,11 @@ export async function getReviews(
   siteHostname: string,
   apiKey: string,
 ): Promise<ReviewsResult | null> {
-  // 1. Find the business. Bias the query with the domain root so a generic
-  //    name is more likely to resolve to the right listing.
-  const query = `${businessName} ${siteHostname.replace(/^www\./, "")}`;
+  // 1. Identify the business. Prefer the typed name; fall back to the domain
+  //    root. Pairing with the hostname sharpens the match either way.
+  const host = siteHostname.replace(/^www\./, "");
+  const identifier = businessName.trim() || domainRoot(siteHostname);
+  const query = `${identifier} ${host}`.trim();
   const searchParams = new URLSearchParams({ query, key: apiKey });
 
   const searchRes = await fetchWithTimeout(
@@ -61,9 +68,13 @@ export async function getReviews(
 
   // 3. One competitor: same primary category, nearby. Best-effort — if this
   //    fails we still return the business's own numbers with competitor 0.
+  //    The raw type (e.g. "roofing_contractor") also rides back on the result
+  //    as `category` — it drives the vertical job-value lookup for dollar
+  //    ranges (config/verticals.ts).
   let competitorCount = 0;
   let competitorName: string | undefined;
-  const category = pickCategory(place.types);
+  const rawType = pickRawType(place.types);
+  const category = rawType ? rawType.replace(/_/g, " ") : null;
   const loc = place.geometry?.location;
 
   if (category && loc) {
@@ -80,11 +91,22 @@ export async function getReviews(
       );
       if (nearbyRes.ok) {
         const nearby = (await nearbyRes.json()) as NearbyResponse;
-        const competitor = (nearby.results ?? []).find(
-          (r) =>
-            r.place_id !== top.place_id &&
-            (r.user_ratings_total ?? 0) > 0,
-        );
+        // The comparison is only meaningful against the LOCAL LEADER, not a
+        // random weak neighbor. Pick the same-category competitor with the
+        // HIGHEST review count (excluding the target business itself).
+        const competitor = (nearby.results ?? [])
+          .filter(
+            (r) =>
+              r.place_id !== top.place_id &&
+              (r.user_ratings_total ?? 0) > 0,
+          )
+          .reduce<NonNullable<NearbyResponse["results"]>[number] | null>(
+            (best, r) =>
+              (r.user_ratings_total ?? 0) > (best?.user_ratings_total ?? 0)
+                ? r
+                : best,
+            null,
+          );
         if (competitor) {
           competitorCount = competitor.user_ratings_total ?? 0;
           competitorName = competitor.name;
@@ -95,7 +117,13 @@ export async function getReviews(
     }
   }
 
-  return { count, rating, competitorCount, competitorName };
+  return {
+    count,
+    rating,
+    competitorCount,
+    competitorName,
+    category: rawType ?? undefined,
+  };
 }
 
 // Skip generic Google types so the competitor keyword is meaningful.
@@ -107,10 +135,9 @@ const GENERIC_TYPES = new Set([
   "health",
 ]);
 
-function pickCategory(types?: string[]): string | null {
+function pickRawType(types?: string[]): string | null {
   if (!types) return null;
-  const specific = types.find((t) => !GENERIC_TYPES.has(t));
-  return specific ? specific.replace(/_/g, " ") : null;
+  return types.find((t) => !GENERIC_TYPES.has(t)) ?? null;
 }
 
 interface TextSearchResponse {

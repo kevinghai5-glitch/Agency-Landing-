@@ -1,19 +1,21 @@
 import { NextResponse } from "next/server";
 import type { ScanRequestBody, ScanResult } from "@/lib/types";
 import { normalizeSite } from "@/lib/validateUrl";
-import { getPageSpeed } from "@/lib/pagespeed";
 import { getReviews } from "@/lib/places";
 import { getPageChecks } from "@/lib/pageChecks";
 import { getCached, setCached } from "@/lib/cache";
 import { checkRateLimit, clientIp } from "@/lib/rateLimit";
 
 /**
- * POST /api/instant-scan  — the LIGHT scan.
+ * POST /api/instant-scan  — the LIGHT, INSTANT scan.
  *
- * This is NOT the heavy audit/deliverable generator. It runs three cheap,
- * public data pulls in parallel and returns whatever succeeds. It must never
- * import or invoke anything audit-generation related — that stays behind the
- * qualification gate.
+ * This is NOT the heavy audit/deliverable generator. It runs two cheap, fast
+ * public data pulls in parallel (reviews + page checks) and returns whatever
+ * succeeds, typically in ~1–2s. Site speed is deliberately NOT here: PageSpeed's
+ * live audit takes ~30s and would make this scan slow and often empty. It's
+ * fetched separately, in the background, via POST /api/instant-scan/speed.
+ * This route must never import or invoke anything audit-generation related —
+ * that stays behind the qualification gate.
  */
 
 // Node runtime: the homepage HTML fetch + streaming reader want Node APIs, and
@@ -52,30 +54,22 @@ export async function POST(req: Request) {
     return NextResponse.json(cached);
   }
 
-  const apiKey = process.env.GOOGLE_API_KEY;
-  if (!apiKey) {
-    // Misconfiguration — log server-side, don't leak specifics to the client.
-    console.error("[instant-scan] GOOGLE_API_KEY is not set");
-    return NextResponse.json({ error: "unavailable" }, { status: 503 });
-  }
+  // Places key powers the reviews pull; page checks need no key. (Speed lives in
+  // the separate /speed route with its own PageSpeed key.)
+  const placesKey = process.env.GOOGLE_PLACES_KEY;
 
-  // 4. Fire all three sources in parallel; each has its own timeout. We take
-  //    whatever settles successfully and record the rest in `errors`.
-  const [speedRes, reviewsRes, checksRes] = await Promise.allSettled([
-    getPageSpeed(site.url, apiKey),
-    getReviews(businessName, site.hostname, apiKey),
+  // 4. Fire the two fast sources in parallel; each has its own timeout. We take
+  //    whatever settles successfully and record the rest in `errors`. A missing
+  //    key for reviews just skips that source rather than failing the scan.
+  const [reviewsRes, checksRes] = await Promise.allSettled([
+    placesKey
+      ? getReviews(businessName, site.hostname, placesKey)
+      : Promise.reject(new Error("no places key")),
     getPageChecks(site.url),
   ]);
 
   const errors: string[] = [];
   const result: ScanResult = { errors };
-
-  if (speedRes.status === "fulfilled") {
-    result.speed = speedRes.value;
-  } else {
-    errors.push("speed");
-    console.error("[instant-scan] speed failed:", speedRes.reason);
-  }
 
   if (reviewsRes.status === "fulfilled") {
     // null means "no listing found" — a valid outcome, not an error.
@@ -94,8 +88,7 @@ export async function POST(req: Request) {
 
   // 5. If EVERYTHING failed, treat it as an unreachable site so the frontend
   //    shows the friendly fallback rather than an empty scorecard.
-  const gotSomething =
-    result.speed || result.reviews || result.checks;
+  const gotSomething = result.reviews || result.checks;
   if (!gotSomething) {
     return NextResponse.json({ error: "unreachable" }, { status: 502 });
   }

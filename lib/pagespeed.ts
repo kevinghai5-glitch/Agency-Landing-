@@ -15,6 +15,7 @@ type SpeedResult = NonNullable<ScanResult["speed"]>;
 export async function getPageSpeed(
   siteUrl: string,
   apiKey: string,
+  timeoutMs: number = PAGESPEED_TIMEOUT_MS,
 ): Promise<SpeedResult> {
   const params = new URLSearchParams({
     url: siteUrl,
@@ -25,7 +26,7 @@ export async function getPageSpeed(
 
   const res = await fetchWithTimeout(
     `${ENDPOINT}?${params.toString()}`,
-    PAGESPEED_TIMEOUT_MS,
+    timeoutMs,
   );
 
   if (!res.ok) {

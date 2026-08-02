@@ -35,8 +35,9 @@ export async function getPageChecks(siteUrl: string): Promise<Checks> {
 
   const mobileViewport = /<meta[^>]+name=["']viewport["']/.test(html);
   const bookingCtaFound = detectBookingCta(html);
+  const hasTel = /href=["']tel:/.test(html);
 
-  return { https, mobileViewport, bookingCtaFound };
+  return { https, mobileViewport, bookingCtaFound, hasTel };
 }
 
 async function readCapped(res: Response): Promise<string> {

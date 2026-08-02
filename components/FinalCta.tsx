@@ -19,7 +19,7 @@ export default function FinalCta() {
   }
 
   return (
-    <section className="px-5 py-20 sm:py-28">
+    <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink">
           Find your leaks in 30 seconds — free, and yours to keep either way.

@@ -5,7 +5,7 @@
  */
 export default function Reframe() {
   return (
-    <section className="px-5 py-20 sm:py-28 bg-surface border-y border-border">
+    <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink">
           You don&apos;t have a lead problem.

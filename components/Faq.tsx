@@ -3,17 +3,23 @@
 import { useState } from "react";
 
 /**
- * Section 9 — FAQ accordion, 5 items. The accordion open/close is the only
- * animation permitted here besides the scan checklist.
+ * Section 9 — FAQ accordion, 6 items. The accordion open/close is the only
+ * animation permitted here besides the scan checklist. No dollar figures, no
+ * hype vocabulary, never the word "guaranteed" — the paid done-for-you
+ * service is stated plainly as the business model, nothing more.
  */
 const ITEMS = [
   {
     q: "Is it really free?",
-    a: "Yes. The scan and the full report are both free, no strings.",
+    a: "Yes. The scan and the 15-minute walkthrough are both free, no strings.",
   },
   {
     q: "What's the catch?",
-    a: "I make money when businesses want their leaks fixed — that's a paid service I offer. The report is yours either way, and if there's nothing worth fixing, I'll tell you.",
+    a: "I make money when owners want their leaks fixed for them — that's the done-for-you build and monthly management I sell. The scan and the call cost nothing either way, and if there's nothing worth fixing, I'll tell you.",
+  },
+  {
+    q: "What happens on the call?",
+    a: "Two minutes on what I could see from outside, then questions about how leads get handled once they reach you — and we put a real monthly number on what's slipping. If it's worth fixing, I show you what the build looks like and what it costs. If it isn't, I'll say so.",
   },
   {
     q: "What data are you pulling?",
@@ -21,25 +27,48 @@ const ITEMS = [
   },
   {
     q: "What if my site's already fine?",
-    a: "Then the report will say so, and I'll tell you straight. I'd rather you know it's fine than pay for something you don't need.",
+    a: "Then your results will say so — I don't invent problems. But a fine site isn't the same as nothing leaking: most of it happens after someone reaches out, where no scan can look. If the six questions came back clean too, don't book — I'd rather you know you're fine than pay for something you don't need.",
   },
   {
     q: "Do I need to be technical?",
-    a: "No. It's plain English, no jargon. If a report ever needs a translator, it's a bad report.",
+    a: "No. It's plain English, no jargon — in your results and on the call.",
   },
 ] as const;
 
-export default function Faq() {
+/**
+ * Post-scan, most of these are answered: they've seen the scan is free, seen
+ * the data, seen whether their site is fine. Only the objections that still
+ * stand between them and booking survive — in the order a hesitating owner
+ * actually thinks them.
+ */
+const REPORT_QUESTIONS = [
+  "What happens on the call?",
+  "What's the catch?",
+  "What if my site's already fine?",
+] as const;
+
+export default function Faq({
+  mode = "full",
+}: {
+  /** "report" trims to the call-relevant objections (post-scan). */
+  mode?: "full" | "report";
+}) {
   const [open, setOpen] = useState<number | null>(0);
+  const items =
+    mode === "report"
+      ? REPORT_QUESTIONS.map(
+          (q) => ITEMS.find((i) => i.q === q)!,
+        )
+      : ITEMS;
 
   return (
-    <section className="px-5 py-20 sm:py-28 bg-surface border-y border-border">
+    <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto">
-        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center mb-12">
+        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center mb-8">
           Questions
         </h2>
         <ul className="flex flex-col divide-y divide-border border-y border-border">
-          {ITEMS.map((item, i) => {
+          {items.map((item, i) => {
             const isOpen = open === i;
             return (
               <li key={item.q}>

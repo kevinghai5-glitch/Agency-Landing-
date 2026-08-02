@@ -1,30 +1,32 @@
 /**
- * Section 7 — how it works, 3 steps. NEVER say "instant" for the full report:
- * the scan is instant; the report arrives within the hour.
+ * Section 7 — how it works, 3 steps. The scan results ARE the report,
+ * delivered on screen the moment the scan finishes. Nothing is emailed,
+ * nothing "arrives later" — the only next step after results is booking
+ * the 15-minute walkthrough.
  */
 const STEPS = [
   {
     n: "1",
     title: "Run the instant scan",
-    body: "Two fields, thirty seconds. You see the first leaks right away.",
+    body: "Two fields, thirty seconds. No signup, nothing to wait for.",
   },
   {
     n: "2",
-    title: "Get your full report",
-    body: "In your inbox within the hour — every leak, your competitor comparison, and what each one's costing you.",
+    title: "See where you're leaking",
+    body: "Your results on screen immediately — plain English, real data, no email required.",
   },
   {
     n: "3",
-    title: "Optional 15-minute walkthrough",
-    body: "If you want it, I'll show you exactly what's leaking and what fixing it looks like. No pressure either way.",
+    title: "Book the 15-minute walkthrough",
+    body: "We put a real monthly number on what's slipping — then, if it's worth fixing, I show you what fixing it looks like and what it costs.",
   },
 ] as const;
 
 export default function HowItWorks() {
   return (
-    <section className="px-5 py-20 sm:py-28 bg-surface border-y border-border">
+    <section className="px-5 py-8 sm:py-10">
       <div className="max-w-3xl mx-auto">
-        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center mb-12">
+        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center mb-8">
           How it works
         </h2>
         <ol className="grid gap-8 sm:grid-cols-3">

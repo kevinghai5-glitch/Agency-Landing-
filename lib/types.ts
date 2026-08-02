@@ -13,11 +13,16 @@ export interface ScanResult {
     rating: number; // the business's Google star rating
     competitorCount: number; // a nearby same-category competitor's review count
     competitorName?: string;
+    /** The business's primary Google Places type (e.g. "dentist",
+     *  "roofing_contractor"). Drives the trade-typical job-value lookup in
+     *  config/verticals.ts. Absent when no specific type was found. */
+    category?: string;
   };
   checks?: {
     https: boolean;
     mobileViewport: boolean;
     bookingCtaFound: boolean | null; // null = ambiguous; never flag on null
+    hasTel: boolean; // is there a tap-to-call (tel:) link in the homepage HTML
   };
   /** Which sources failed, for server logs. Never rendered raw to users. */
   errors: string[];

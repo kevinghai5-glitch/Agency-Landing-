@@ -1,4 +1,4 @@
-# LaunchGrid — Inbound Instant-Scan Landing Page
+# ReclaimedHQ — Inbound Instant-Scan Landing Page
 
 A standalone Next.js landing page with one job: get a qualified local-business
 owner through a 30-second instant scan and into the LeadGate qualification gate.

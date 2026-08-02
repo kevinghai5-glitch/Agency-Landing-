@@ -11,7 +11,7 @@ import { FOUNDER_NAME, FOUNDER_PHOTO } from "@/config/brand";
  */
 export default function WhyTrust() {
   return (
-    <section className="px-5 py-20 sm:py-28">
+    <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto">
         <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center">
           Why trust this
@@ -22,20 +22,23 @@ export default function WhyTrust() {
           there&apos;s nothing worth fixing, I&apos;ll tell you that too.
         </p>
 
-        <div className="mt-12 flex flex-col items-center text-center">
-          <div className="w-20 h-20 rounded-full overflow-hidden border border-border bg-surface">
-            <Image
-              src={FOUNDER_PHOTO}
-              alt={FOUNDER_NAME}
-              width={80}
-              height={80}
-              className="object-cover w-full h-full"
-            />
-          </div>
+        <div className="mt-8 flex flex-col items-center text-center">
+          {FOUNDER_PHOTO && (
+            <div className="w-20 h-20 rounded-full overflow-hidden border border-border bg-surface">
+              <Image
+                src={FOUNDER_PHOTO}
+                alt={FOUNDER_NAME}
+                width={80}
+                height={80}
+                className="object-cover w-full h-full"
+              />
+            </div>
+          )}
           <p className="font-serif text-xl text-ink mt-4">{FOUNDER_NAME}</p>
           <p className="text-muted text-base leading-relaxed mt-2 max-w-md">
-            I look at your site the way your next customer does, and I tell you
-            what I see. Straight.
+            I follow the whole path a lead takes to reach you — from the
+            search to the phone call nobody answered — and I tell you where
+            it breaks. Straight.
           </p>
         </div>
 
