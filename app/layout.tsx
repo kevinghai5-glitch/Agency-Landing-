@@ -4,7 +4,6 @@ import {
   BRAND_NAME,
   BOOKING_URL_IS_PLACEHOLDER,
   CONTACT_EMAIL_IS_PLACEHOLDER,
-  FOUNDER_PHOTO_IS_PLACEHOLDER,
 } from "@/config/brand";
 import "./globals.css";
 
@@ -17,11 +16,6 @@ if (CONTACT_EMAIL_IS_PLACEHOLDER) {
 if (BOOKING_URL_IS_PLACEHOLDER) {
   console.warn(
     "\n⚠️  BOOKING URL IS A PLACEHOLDER — set NEXT_PUBLIC_BOOKING_URL to the real GoHighLevel calendar link. The post-scan “Book the 15-minute walkthrough” button is this funnel's ONLY conversion step; without it, results lead nowhere.\n",
-  );
-}
-if (FOUNDER_PHOTO_IS_PLACEHOLDER) {
-  console.warn(
-    "\n⚠️  FOUNDER PHOTO IS THE PLACEHOLDER SVG — drop a real photo into /public (e.g. /founder.jpg) and point NEXT_PUBLIC_FOUNDER_PHOTO at it.\n",
   );
 }
 

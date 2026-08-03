@@ -27,18 +27,12 @@ export const CONTACT_EMAIL_IS_PLACEHOLDER =
   CONTACT_EMAIL === CONTACT_EMAIL_FALLBACK;
 
 /**
- * ⚠️ TODO(FOUNDER_PHOTO): /public/founder.svg is a PLACEHOLDER avatar. Drop a
- * REAL photo into /public (e.g. /founder.jpg) and point
- * NEXT_PUBLIC_FOUNDER_PHOTO at it. Empty is honest too: the founder block
- * renders name-only rather than a generic avatar (a fake face contradicts the
- * "real face" job of the trust section).
- *
- * Consumed by: components/WhyTrust.tsx (founder block).
+ * Kevin's real headshot, committed at /public/founder.png — a plain static
+ * asset, no env var. (The old env indirection existed only so a placeholder
+ * avatar could never ship silently; with a real photo in the repo it was
+ * pure friction.) Consumed by: components/WhyTrust.tsx (founder block).
  */
-export const FOUNDER_PHOTO =
-  process.env.NEXT_PUBLIC_FOUNDER_PHOTO?.trim() || "";
-export const FOUNDER_PHOTO_IS_PLACEHOLDER =
-  FOUNDER_PHOTO.endsWith("founder.svg");
+export const FOUNDER_PHOTO = "/founder.png";
 
 /**
  * ⚠️ TODO(BOOKING_URL): set NEXT_PUBLIC_BOOKING_URL to the real GoHighLevel
