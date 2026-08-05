@@ -11,7 +11,6 @@ import WhyTrust from "@/components/WhyTrust";
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import BookCall from "@/components/BookCall";
-import Footer from "@/components/Footer";
 
 /**
  * The single inbound funnel page. It has TWO MODES (see components/PageBody):
@@ -63,7 +62,6 @@ export default function Page() {
               <WhyTrust />
               <Faq />
               <FinalCta />
-              <Footer />
             </AuroraBackground>
           }
           report={
@@ -76,7 +74,6 @@ export default function Page() {
               <WhyTrust />
               {/* The ONE action on the post-scan page. */}
               <BookCall />
-              <Footer />
             </>
           }
         />

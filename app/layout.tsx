@@ -1,9 +1,25 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
-import { BRAND_NAME, BOOKING_URL_IS_PLACEHOLDER } from "@/config/brand";
+import Footer from "@/components/Footer";
+import {
+  BRAND_NAME,
+  BOOKING_URL_IS_PLACEHOLDER,
+  BUSINESS_ADDRESS_IS_PLACEHOLDER,
+  BUSINESS_PHONE_IS_PLACEHOLDER,
+} from "@/config/brand";
 import "./globals.css";
 
-// Loud, unmissable flag: a placeholder booking link must never ship silently.
+// Loud, unmissable flags: placeholders must never ship silently.
+if (BUSINESS_ADDRESS_IS_PLACEHOLDER) {
+  console.warn(
+    "\n⚠️  BUSINESS ADDRESS IS A PLACEHOLDER — set NEXT_PUBLIC_BUSINESS_ADDRESS. Carrier A2P registration requires a real physical address visible in the site footer; a reviewer will reject the submission without it.\n",
+  );
+}
+if (BUSINESS_PHONE_IS_PLACEHOLDER) {
+  console.warn(
+    "\n⚠️  BUSINESS PHONE IS A PLACEHOLDER — set NEXT_PUBLIC_BUSINESS_PHONE to the number used to VERIFY THE BRAND during A2P registration (NOT the GoHighLevel sending number). A mismatch is an automatic rejection.\n",
+  );
+}
 if (BOOKING_URL_IS_PLACEHOLDER) {
   console.warn(
     "\n⚠️  BOOKING URL IS A PLACEHOLDER — set NEXT_PUBLIC_BOOKING_URL to the real GoHighLevel calendar link. The post-scan “Book the 15-minute walkthrough” button is this funnel's ONLY conversion step; without it, results lead nowhere.\n",
@@ -51,7 +67,12 @@ export default function RootLayout({
           components/ChatWidget.tsx, mounted inside the scan provider in
           app/page.tsx. Keeping it out of the root layout also keeps it off
           /privacy. */}
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        {children}
+        {/* A2P compliance block — required on EVERY page, so it lives in the
+            root layout rather than per-page. */}
+        <Footer />
+      </body>
     </html>
   );
 }
