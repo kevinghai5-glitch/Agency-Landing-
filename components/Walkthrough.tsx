@@ -1,3 +1,5 @@
+import { InkPanel } from "@/components/ui/ink-panel";
+
 /**
  * Section 6 — what the 15-minute walkthrough covers.
  *
@@ -58,30 +60,8 @@ export default function Walkthrough() {
           figures, not estimates.
         </p>
 
-        {/* The rich focal block of the pitch page — same language as the
-            post-scan quiz panel: inverted ink, the hero's dot grid in
-            negative, a warm gold corner light, gold hairline. All static
-            CSS, no filters, so it costs nothing per frame. */}
-        <div className="mt-9 relative overflow-hidden rounded-xl bg-ink text-bg shadow-card border border-accent/25 p-7 sm:p-9">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage:
-                "radial-gradient(rgba(251,250,247,0.09) 1px, transparent 1.4px)",
-              backgroundSize: "28px 28px",
-            }}
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage:
-                "radial-gradient(55% 45% at 88% -8%, rgba(154,123,63,0.38), transparent 70%), radial-gradient(45% 40% at -5% 108%, rgba(154,123,63,0.16), transparent 70%)",
-            }}
-          />
-
-          <ol className="relative flex flex-col">
+        <InkPanel className="mt-9">
+          <ol className="flex flex-col">
             {COVERS.map((item, i) => (
               <li
                 key={item.title}
@@ -101,7 +81,7 @@ export default function Walkthrough() {
               </li>
             ))}
           </ol>
-        </div>
+        </InkPanel>
       </div>
     </section>
   );
