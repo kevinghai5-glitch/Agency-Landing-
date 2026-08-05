@@ -13,12 +13,12 @@ const STEPS = [
   {
     n: "2",
     title: "See where you're leaking",
-    body: "Your results on screen immediately — plain English, real data, no email required.",
+    body: "Results on screen immediately. Plain English, real data, no email.",
   },
   {
     n: "3",
-    title: "Book the 15-minute walkthrough",
-    body: "We put a real monthly number on what's slipping — then, if it's worth fixing, I show you what fixing it looks like and what it costs.",
+    title: "Book the walkthrough",
+    body: "Fifteen minutes. A real monthly number, and what fixing it costs.",
   },
 ] as const;
 

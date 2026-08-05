@@ -23,13 +23,16 @@ export default function WhyTrust() {
         </p>
 
         <div className="mt-8 flex flex-col items-center text-center">
+          {/* 112px, not 80: the photo is dark and low-contrast, so at small
+              sizes it reads as a smudge rather than a face. The ring gives
+              the dark image an edge against the paper background. */}
           {FOUNDER_PHOTO && (
-            <div className="w-20 h-20 rounded-full overflow-hidden border border-border bg-surface">
+            <div className="w-28 h-28 rounded-full overflow-hidden bg-surface ring-1 ring-border shadow-card">
               <Image
                 src={FOUNDER_PHOTO}
                 alt={FOUNDER_NAME}
-                width={80}
-                height={80}
+                width={112}
+                height={112}
                 className="object-cover w-full h-full"
               />
             </div>

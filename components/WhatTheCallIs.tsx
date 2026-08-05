@@ -17,7 +17,13 @@ export default function WhatTheCallIs() {
           What the call is (and isn&apos;t)
         </h2>
 
-        <div className="mt-8 flex flex-col gap-5 max-w-xl mx-auto">
+        {/* No white card here — a boxed block this close to the dark panels
+            reads cheap. A short gold rule under the heading anchors the prose
+            instead. Renders on BOTH the pitch page and the post-scan report,
+            so it stays light on purpose. */}
+        <div aria-hidden className="mx-auto mt-5 h-px w-16 bg-accent/50" />
+
+        <div className="mt-7 flex flex-col gap-5 max-w-xl mx-auto">
           <p className="text-ink text-lg leading-relaxed">
             It&apos;s for owners who want this <em>handled</em>. I ask how
             leads actually get handled once they reach you, we put a real

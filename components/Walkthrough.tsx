@@ -14,12 +14,34 @@
  * never as the substance. No service pricing, no specific dollars here — the
  * price is said out loud ON the call.
  */
+/**
+ * Rendered as a numbered agenda, not a checklist — the call IS a sequence,
+ * and the gold serif numerals are the brand's own premium element (same
+ * treatment as the scorecard stats and the How-it-works steps).
+ */
 const COVERS = [
-  "Two minutes on the couple of things I could see from outside — then we move on",
-  "How leads actually get handled once they come in: after hours, missed calls, follow-up, no-shows, the list you never re-contact",
-  "A real monthly number on what's slipping — built live from your lead volume and what a job is actually worth to you",
-  "If it's worth fixing: exactly what fixing it looks like, and what it costs",
-  "If it isn't worth fixing: I'll tell you that, and we part as friends",
+  {
+    title: "A quick pass on the outside",
+    detail: "Two minutes on what the scan already showed. Not the main event.",
+  },
+  {
+    title: "Where your leads actually go",
+    detail:
+      "After hours, missed calls, follow-up, no-shows, the list nobody re-contacts.",
+  },
+  {
+    title: "A real monthly number",
+    detail:
+      "Built live from your lead volume and what a job is actually worth to you.",
+  },
+  {
+    title: "What fixing it costs",
+    detail: "Exactly what the build looks like, and the price — said out loud.",
+  },
+  {
+    title: "Or: nothing's worth fixing",
+    detail: "Then I tell you that, and you've lost fifteen minutes.",
+  },
 ] as const;
 
 export default function Walkthrough() {
@@ -36,36 +58,52 @@ export default function Walkthrough() {
           figures, not estimates.
         </p>
 
-        <ul className="mt-8 flex flex-col gap-4 max-w-xl mx-auto">
-          {COVERS.map((item) => (
-            <li key={item} className="flex items-start gap-3">
-              <span
-                aria-hidden
-                className="flex-none mt-1 text-accent"
+        {/* The rich focal block of the pitch page — same language as the
+            post-scan quiz panel: inverted ink, the hero's dot grid in
+            negative, a warm gold corner light, gold hairline. All static
+            CSS, no filters, so it costs nothing per frame. */}
+        <div className="mt-9 relative overflow-hidden rounded-xl bg-ink text-bg shadow-card border border-accent/25 p-7 sm:p-9">
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(251,250,247,0.09) 1px, transparent 1.4px)",
+              backgroundSize: "28px 28px",
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(55% 45% at 88% -8%, rgba(154,123,63,0.38), transparent 70%), radial-gradient(45% 40% at -5% 108%, rgba(154,123,63,0.16), transparent 70%)",
+            }}
+          />
+
+          <ol className="relative flex flex-col">
+            {COVERS.map((item, i) => (
+              <li
+                key={item.title}
+                className="flex gap-5 sm:gap-6 py-4 first:pt-0 last:pb-0 border-b border-bg/10 last:border-b-0"
               >
-                <CheckIcon />
-              </span>
-              <span className="text-ink text-base leading-relaxed">
-                {item}
-              </span>
-            </li>
-          ))}
-        </ul>
+                <span className="font-serif text-2xl sm:text-3xl text-accent leading-none flex-none w-9 pt-1 tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <p className="font-serif text-lg sm:text-xl leading-snug">
+                    {item.title}
+                  </p>
+                  <p className="text-base leading-relaxed mt-1 opacity-70">
+                    {item.detail}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   );
 }
 
-function CheckIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <path
-        d="M15 4.5L7 13L3 9"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
