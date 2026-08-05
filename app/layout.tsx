@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
-import Script from "next/script";
 import {
   BRAND_NAME,
   BOOKING_URL_IS_PLACEHOLDER,
   CONTACT_EMAIL_IS_PLACEHOLDER,
-  GHL_CHAT_WIDGET_ID,
 } from "@/config/brand";
 import "./globals.css";
 
@@ -56,22 +54,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
-      <body className="font-sans antialiased">
-        {children}
-
-        {/* GoHighLevel chat widget. strategy="lazyOnload" deliberately: it
-            loads only after the page is interactive, so a third-party script
-            can never delay the scan — the one thing on this page that has to
-            feel instant. The widget id is a public embed identifier, not a
-            secret. Swap it in config/brand.ts if it ever changes. */}
-        <Script
-          src="https://widgets.leadconnectorhq.com/loader.js"
-          data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
-          data-widget-id={GHL_CHAT_WIDGET_ID}
-          data-source="WEB_USER"
-          strategy="lazyOnload"
-        />
-      </body>
+      {/* The GoHighLevel chat widget is deliberately NOT here. It must only
+          appear pre-scan, and pitch/report are the same route (they swap on
+          scan phase), so it can't be gated by route — see
+          components/ChatWidget.tsx, mounted inside the scan provider in
+          app/page.tsx. Keeping it out of the root layout also keeps it off
+          /privacy. */}
+      <body className="font-sans antialiased">{children}</body>
     </html>
   );
 }
