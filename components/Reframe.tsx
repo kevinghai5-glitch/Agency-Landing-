@@ -7,8 +7,8 @@ export default function Reframe() {
   return (
     <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto text-center">
-        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink">
-          You don&apos;t have a lead problem.
+        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-balance">
+          The real problem starts after the lead comes in.
         </h2>
         <p className="text-muted text-lg leading-relaxed mt-6">
           The leads are already coming in. They die somewhere in the middle —
