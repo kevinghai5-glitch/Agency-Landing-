@@ -1,35 +1,53 @@
-"use client";
-
-import ScanForm, { type ScanFormValues } from "./ScanForm";
-import { useScan } from "./ScanContext";
+import { BOOKING_URL } from "@/config/brand";
 
 /**
- * Section 10 — repeat the tool. Restates the promise + risk-reversal, then the
- * SAME form component as the hero. A convinced scroller acts here without
- * scrolling back up: submitting runs the same scan and reveals the scorecard at
- * the hero, then we scroll them there to see it.
+ * Final section of the PITCH page — a straight booking CTA, not a second
+ * scan form. Someone who has read the whole page and scrolled this far is
+ * further along than the hero form assumes; the scan is still one click away
+ * at the top for anyone who wants it first.
+ *
+ * Post-scan this section doesn't render at all — the report page closes with
+ * components/BookCall.tsx instead.
  */
 export default function FinalCta() {
-  const { phase, runScan } = useScan();
-
-  async function handleSubmit(values: ScanFormValues) {
-    // Kick off the shared scan, then move the user to where results render.
-    void runScan(values);
-    document.getElementById("scan")?.scrollIntoView({ behavior: "smooth" });
-  }
-
   return (
     <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink">
-          Find your leaks in 30 seconds — free, and yours to keep either way.
+          Rather just talk it through?
         </h2>
-        <div className="mt-10">
-          <ScanForm
-            onSubmit={handleSubmit}
-            idPrefix="final"
-            pending={phase === "scanning"}
-          />
+        <p className="text-muted text-lg leading-relaxed mt-4 max-w-xl mx-auto">
+          Book the 15-minute walkthrough and we&apos;ll put a real monthly
+          number on what&apos;s slipping — with or without running the scan
+          first.
+        </p>
+
+        <div className="mt-8 flex flex-col items-center">
+          {BOOKING_URL ? (
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-full max-w-xl h-14 rounded-lg bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
+            >
+              Book the 15-minute walkthrough →
+            </a>
+          ) : (
+            // Env not set yet (local dev). Honest and obvious rather than a
+            // dead button — mirrors the placeholder pattern used sitewide.
+            <div className="w-full max-w-xl rounded-xl border border-dashed border-border bg-surface p-8 text-center">
+              <p className="text-muted text-sm">
+                Booking button renders here. Set{" "}
+                <code className="text-ink">NEXT_PUBLIC_BOOKING_URL</code> to
+                the GoHighLevel calendar link to enable it.
+              </p>
+            </div>
+          )}
+
+          <p className="text-muted text-sm leading-relaxed mt-4 max-w-xl">
+            Free · 15 minutes · no obligation. If nothing&apos;s worth fixing,
+            I&apos;ll tell you that on the call.
+          </p>
         </div>
       </div>
     </section>

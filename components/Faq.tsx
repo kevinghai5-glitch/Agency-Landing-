@@ -53,7 +53,10 @@ export default function Faq({
   /** "report" trims to the call-relevant objections (post-scan). */
   mode?: "full" | "report";
 }) {
-  const [open, setOpen] = useState<number | null>(0);
+  // All collapsed on load — a pre-opened first item reads as a page that was
+  // left mid-interaction. Same component serves the pitch page and the
+  // post-scan report, so this covers both.
+  const [open, setOpen] = useState<number | null>(null);
   const items =
     mode === "report"
       ? REPORT_QUESTIONS.map(

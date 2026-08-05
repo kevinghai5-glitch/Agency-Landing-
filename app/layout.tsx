@@ -1,18 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
-import {
-  BRAND_NAME,
-  BOOKING_URL_IS_PLACEHOLDER,
-  CONTACT_EMAIL_IS_PLACEHOLDER,
-} from "@/config/brand";
+import { BRAND_NAME, BOOKING_URL_IS_PLACEHOLDER } from "@/config/brand";
 import "./globals.css";
 
-// Loud, unmissable flags: placeholders must never ship silently.
-if (CONTACT_EMAIL_IS_PLACEHOLDER) {
-  console.warn(
-    "\n⚠️  CONTACT EMAIL IS A PLACEHOLDER — set NEXT_PUBLIC_CONTACT_EMAIL to a real inbox before shipping. A prospect emailing the current address will bounce.\n",
-  );
-}
+// Loud, unmissable flag: a placeholder booking link must never ship silently.
 if (BOOKING_URL_IS_PLACEHOLDER) {
   console.warn(
     "\n⚠️  BOOKING URL IS A PLACEHOLDER — set NEXT_PUBLIC_BOOKING_URL to the real GoHighLevel calendar link. The post-scan “Book the 15-minute walkthrough” button is this funnel's ONLY conversion step; without it, results lead nowhere.\n",

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { BRAND_NAME, CONTACT_EMAIL } from "@/config/brand";
+import { BRAND_NAME, CONTACT_EMAIL, CONTACT_MAILTO } from "@/config/brand";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 
 export const metadata: Metadata = {
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
             <p className="mt-3 text-ink text-base leading-relaxed">
               Questions, or want your details removed? Email{" "}
               <a
-                href={`mailto:${CONTACT_EMAIL}`}
+                href={CONTACT_MAILTO}
                 className="text-accent hover:underline"
               >
                 {CONTACT_EMAIL}

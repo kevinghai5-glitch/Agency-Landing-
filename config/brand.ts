@@ -9,22 +9,19 @@ export const BRAND_NAME = "ReclaimedHQ";
 export const FOUNDER_NAME = "Kevin Ghai";
 
 /**
- * ⚠️ TODO(CONTACT_EMAIL): set NEXT_PUBLIC_CONTACT_EMAIL to the REAL ReclaimedHQ
- * inbox before traffic. Sourced from env so a fabricated address never ships
- * silently — the fallback below is an obvious placeholder on an unowned domain:
- * a prospect who emails it bounces. `CONTACT_EMAIL_IS_PLACEHOLDER` is true
- * whenever the real value is unset, so the build flags it loudly instead of
- * shipping a dead address.
+ * The real inbox — a plain constant, no env var (same reasoning as the
+ * founder photo: it isn't a secret and it isn't environment-specific).
  *
  * Consumed by:
  *   - components/Footer.tsx        (mailto link + visible address)
  *   - app/privacy/page.tsx         (Contact section)
  */
-const CONTACT_EMAIL_FALLBACK = "PLACEHOLDER@example.com";
-export const CONTACT_EMAIL =
-  process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || CONTACT_EMAIL_FALLBACK;
-export const CONTACT_EMAIL_IS_PLACEHOLDER =
-  CONTACT_EMAIL === CONTACT_EMAIL_FALLBACK;
+export const CONTACT_EMAIL = "kevin@reclaimed-hq.com";
+
+/** Pre-fills the subject so a click opens a ready-to-send draft. */
+export const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+  "Question for ReclaimedHQ",
+)}`;
 
 /**
  * Kevin's real headshot, committed at /public/founder.png — a plain static

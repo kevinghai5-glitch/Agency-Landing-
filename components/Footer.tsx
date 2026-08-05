@@ -1,4 +1,9 @@
-import { BRAND_NAME, CONTACT_EMAIL, PRIVACY_URL } from "@/config/brand";
+import {
+  BRAND_NAME,
+  CONTACT_EMAIL,
+  CONTACT_MAILTO,
+  PRIVACY_URL,
+} from "@/config/brand";
 
 /**
  * Section 11 — minimal footer. Brand name, contact email, privacy link.
@@ -12,7 +17,7 @@ export default function Footer() {
         <span className="font-serif text-ink">{BRAND_NAME}</span>
         <div className="flex items-center gap-6">
           <a
-            href={`mailto:${CONTACT_EMAIL}`}
+            href={CONTACT_MAILTO}
             className="hover:text-ink transition-colors"
           >
             {CONTACT_EMAIL}
