@@ -59,4 +59,4 @@ export const PRIVACY_URL = "/privacy";
  * page source by design), not a secret — safe to hardcode, no env var.
  * Consumed by: app/layout.tsx.
  */
-export const GHL_CHAT_WIDGET_ID = "6a73516657d382a077d1f835";
+export const GHL_CHAT_WIDGET_ID = "6a73520857d382a077d2221b";
