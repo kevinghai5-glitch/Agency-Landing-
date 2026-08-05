@@ -53,3 +53,10 @@ export const BOOKING_URL_IS_PLACEHOLDER =
 
 /** Where the minimal footer's privacy link points. */
 export const PRIVACY_URL = "/privacy";
+
+/**
+ * GoHighLevel chat widget id. A PUBLIC embed identifier (it ships in the
+ * page source by design), not a secret — safe to hardcode, no env var.
+ * Consumed by: app/layout.tsx.
+ */
+export const GHL_CHAT_WIDGET_ID = "6a73516657d382a077d1f835";
