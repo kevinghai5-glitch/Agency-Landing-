@@ -48,17 +48,13 @@ export const BUSINESS_PHONE = "+1 905-483-7430";
  * Structured as fields rather than one string so gaps are obvious and easy
  * to fill: set `postalCode` (and `line2` if there's a unit) and it renders
  * automatically — no formatting to hand-edit.
- *
- * ⚠️ TODO(postalCode): carrier A2P review generally expects a complete
- * address including postal code. Until it's set, /contact renders the
- * address without it and the build warns.
  */
 export const FULL_ADDRESS = {
   line1: "2485 Whistling Springs Crescent",
   line2: "", // unit / suite, if any
   city: "Oakville",
   region: "Ontario",
-  postalCode: "", // ⚠️ TODO — e.g. "L6M 0X0"
+  postalCode: "L6M 5G3",
   country: "Canada",
 };
 
