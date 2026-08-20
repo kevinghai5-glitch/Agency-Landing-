@@ -18,25 +18,19 @@ export const LEGAL_ENTITY = "18081841 Canada Inc.";
 export const GOVERNING_LAW = "Ontario, Canada";
 
 /**
- * ⚠️ TODO(BUSINESS_ADDRESS): Kevin supplies the real registered business
- * address. Carrier A2P registration REQUIRES a physical business address
- * visible on the site — a reviewer loads the page and looks for it. The
- * placeholder below is deliberately obvious so it cannot ship unnoticed.
+ * Publicly displayed business location. Carrier A2P review requires a
+ * business address visible on the site — a reviewer loads the page and
+ * looks for it.
  *
  * Consumed by: components/Footer.tsx (compliance block, every page).
  */
-export const BUSINESS_ADDRESS =
-  process.env.NEXT_PUBLIC_BUSINESS_ADDRESS?.trim() ||
-  "TODO — ADD REGISTERED BUSINESS ADDRESS";
-export const BUSINESS_ADDRESS_IS_PLACEHOLDER =
-  BUSINESS_ADDRESS.startsWith("TODO");
+export const BUSINESS_ADDRESS = "Oakville, Ontario, Canada";
 
 /**
- * ⚠️ TODO(BUSINESS_PHONE): Kevin supplies this.
+ * ⚠️⚠️ DO NOT "CORRECT" THIS TO THE GOHIGHLEVEL NUMBER. ⚠️⚠️
  *
- * ⚠️⚠️ CRITICAL — DO NOT "CORRECT" THIS TO THE GOHIGHLEVEL NUMBER. ⚠️⚠️
- * This must be the SAME phone number used to verify the brand during A2P
- * registration, NOT the new GHL/LeadConnector sending number. Carriers
+ * This is the phone number used to VERIFY THE BRAND during A2P
+ * registration — NOT the GHL/LeadConnector sending number. Carriers
  * cross-check the number displayed on the site against the number on the
  * brand registration; a mismatch is an automatic rejection. If you are
  * reading this later and it looks "wrong" because it isn't the GHL number,
@@ -44,10 +38,7 @@ export const BUSINESS_ADDRESS_IS_PLACEHOLDER =
  *
  * Consumed by: components/Footer.tsx (compliance block, every page).
  */
-export const BUSINESS_PHONE =
-  process.env.NEXT_PUBLIC_BUSINESS_PHONE?.trim() ||
-  "TODO — ADD BRAND-VERIFICATION PHONE";
-export const BUSINESS_PHONE_IS_PLACEHOLDER = BUSINESS_PHONE.startsWith("TODO");
+export const BUSINESS_PHONE = "+1 905-483-7430";
 
 /** Digits-only tel: href, so the displayed format stays human-readable. */
 export const BUSINESS_PHONE_TEL = `tel:${BUSINESS_PHONE.replace(/[^\d+]/g, "")}`;
