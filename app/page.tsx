@@ -1,7 +1,6 @@
 import { ScanProvider } from "@/components/ScanContext";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import PageBody from "@/components/PageBody";
-import ChatWidget from "@/components/ChatWidget";
 import Hero from "@/components/Hero";
 import Reframe from "@/components/Reframe";
 import Walkthrough from "@/components/Walkthrough";
@@ -78,10 +77,6 @@ export default function Page() {
           }
         />
       </main>
-
-      {/* Chat widget: pitch mode only. It hides itself once results render,
-          so it never shares a page with the booking CTA / calendar embed. */}
-      <ChatWidget />
     </ScanProvider>
   );
 }

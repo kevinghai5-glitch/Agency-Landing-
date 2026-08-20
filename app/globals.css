@@ -64,10 +64,4 @@ body {
   }
 }
 
-/* The GoHighLevel loader appends <chat-widget> to <body> as a side effect,
-   so unmounting the <Script> does not remove it. components/ChatWidget.tsx
-   toggles this class on <html> to pull the widget off the post-scan report
-   page, which carries its own booking CTA / calendar embed. */
-.hide-chat-widget chat-widget {
-  display: none !important;
-}
+

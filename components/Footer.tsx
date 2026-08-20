@@ -6,6 +6,7 @@ import {
   CONTACT_EMAIL,
   CONTACT_MAILTO,
   CONTACT_URL,
+  TEXT_US_URL,
   LEGAL_ENTITY,
   PRIVACY_URL,
   TERMS_URL,
@@ -65,6 +66,9 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <a href={CONTACT_URL} className="hover:text-ink transition-colors">
               Contact
+            </a>
+            <a href={TEXT_US_URL} className="hover:text-ink transition-colors">
+              Text us
             </a>
             <a href={TERMS_URL} className="hover:text-ink transition-colors">
               Terms of Service

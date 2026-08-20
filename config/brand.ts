@@ -117,6 +117,8 @@ export const BOOKING_URL_IS_PLACEHOLDER =
 export const PRIVACY_URL = "/privacy";
 export const TERMS_URL = "/terms";
 export const CONTACT_URL = "/contact";
+/** The ONLY page embedding the chat widget — see app/text-us/page.tsx. */
+export const TEXT_US_URL = "/text-us";
 
 /** Shown as the "last updated" date on /terms and /privacy. Bump when the
  *  substance of either page changes. */
