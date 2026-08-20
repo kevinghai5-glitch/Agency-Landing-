@@ -27,7 +27,7 @@ export default function WhyTrust() {
           Why trust this
         </h2>
         <p className="text-ink text-lg leading-relaxed mt-6 text-center max-w-xl mx-auto">
-          I don&apos;t do lead gen. I won&apos;t sell you ads or SEO. I show you
+          I don&apos;t sell traffic. I won&apos;t sell you ads or SEO. I show you
           where you&apos;re losing the leads you already have — and if
           there&apos;s nothing worth fixing, I&apos;ll tell you that too.
         </p>
