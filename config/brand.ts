@@ -40,6 +40,40 @@ export const BUSINESS_ADDRESS = "Oakville, Ontario, Canada";
  */
 export const BUSINESS_PHONE = "+1 905-483-7430";
 
+/**
+ * FULL postal address — shown on /contact only. The footer deliberately
+ * shows city-level (BUSINESS_ADDRESS) instead, so the full address lives on
+ * exactly one page.
+ *
+ * Structured as fields rather than one string so gaps are obvious and easy
+ * to fill: set `postalCode` (and `line2` if there's a unit) and it renders
+ * automatically — no formatting to hand-edit.
+ *
+ * ⚠️ TODO(postalCode): carrier A2P review generally expects a complete
+ * address including postal code. Until it's set, /contact renders the
+ * address without it and the build warns.
+ */
+export const FULL_ADDRESS = {
+  line1: "2485 Whistling Springs Crescent",
+  line2: "", // unit / suite, if any
+  city: "Oakville",
+  region: "Ontario",
+  postalCode: "", // ⚠️ TODO — e.g. "L6M 0X0"
+  country: "Canada",
+};
+
+/** Address as display lines, empty fields skipped. */
+export const FULL_ADDRESS_LINES: string[] = [
+  FULL_ADDRESS.line1,
+  FULL_ADDRESS.line2,
+  [FULL_ADDRESS.city, FULL_ADDRESS.region, FULL_ADDRESS.postalCode]
+    .filter(Boolean)
+    .join(", "),
+  FULL_ADDRESS.country,
+].filter(Boolean);
+
+export const FULL_ADDRESS_IS_INCOMPLETE = !FULL_ADDRESS.postalCode.trim();
+
 /** Digits-only tel: href, so the displayed format stays human-readable. */
 export const BUSINESS_PHONE_TEL = `tel:${BUSINESS_PHONE.replace(/[^\d+]/g, "")}`;
 
@@ -83,9 +117,10 @@ export const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL?.trim() || "";
 export const BOOKING_URL_IS_PLACEHOLDER =
   !BOOKING_URL || BOOKING_URL.includes("REPLACE");
 
-/** Legal pages, linked from the footer on every page (A2P requirement). */
+/** Legal + contact pages, linked from the footer on every page (A2P). */
 export const PRIVACY_URL = "/privacy";
 export const TERMS_URL = "/terms";
+export const CONTACT_URL = "/contact";
 
 /** Shown as the "last updated" date on /terms and /privacy. Bump when the
  *  substance of either page changes. */

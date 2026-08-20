@@ -1,10 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import Footer from "@/components/Footer";
-import { BRAND_NAME, BOOKING_URL_IS_PLACEHOLDER } from "@/config/brand";
+import {
+  BRAND_NAME,
+  BOOKING_URL_IS_PLACEHOLDER,
+  FULL_ADDRESS_IS_INCOMPLETE,
+} from "@/config/brand";
 import "./globals.css";
 
-// Loud, unmissable flag: a placeholder booking link must never ship silently.
+// Loud, unmissable flags.
+if (FULL_ADDRESS_IS_INCOMPLETE) {
+  console.warn(
+    "\n⚠️  FULL ADDRESS IS MISSING A POSTAL CODE — set FULL_ADDRESS.postalCode in config/brand.ts. Carrier A2P review generally expects a complete address on the contact page.\n",
+  );
+}
 if (BOOKING_URL_IS_PLACEHOLDER) {
   console.warn(
     "\n⚠️  BOOKING URL IS A PLACEHOLDER — set NEXT_PUBLIC_BOOKING_URL to the real GoHighLevel calendar link. The post-scan “Book the 15-minute walkthrough” button is this funnel's ONLY conversion step; without it, results lead nowhere.\n",
