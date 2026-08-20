@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
+import Script from "next/script";
 import Footer from "@/components/Footer";
 import {
   BRAND_NAME,
   BOOKING_URL_IS_PLACEHOLDER,
   FULL_ADDRESS_IS_INCOMPLETE,
+  GHL_CHAT_WIDGET_ID,
 } from "@/config/brand";
 import "./globals.css";
 
@@ -66,6 +68,25 @@ export default function RootLayout({
         {/* A2P compliance block — required on EVERY page, so it lives in the
             root layout rather than per-page. */}
         <Footer />
+
+        {/* GoHighLevel chat widget — site-wide, INCLUDING the root URL.
+            LeadConnector's compliance checker is automated: it fetches the
+            root domain and greps for this loader. A widget on a sub-page
+            only (e.g. /text-us) fails that check even though a human would
+            find it.
+
+            Box 6 of the attestation prohibits forms collecting PHONE NUMBERS
+            or SMS OPT-IN CONSENT on any page carrying the widget. The only
+            form on this site is the scan form (business name + website) —
+            it collects neither, so the attestation holds site-wide. Do not
+            add a phone or consent field to any page without moving this. */}
+        <Script
+          src="https://widgets.leadconnectorhq.com/loader.js"
+          data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+          data-widget-id={GHL_CHAT_WIDGET_ID}
+          data-source="WEB_USER"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

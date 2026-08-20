@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Script from "next/script";
 import type { Metadata } from "next";
 import {
   BRAND_NAME,
@@ -7,7 +6,6 @@ import {
   BUSINESS_PHONE_TEL,
   CONTACT_EMAIL,
   CONTACT_MAILTO,
-  GHL_CHAT_WIDGET_ID,
   PRIVACY_URL,
 } from "@/config/brand";
 
@@ -17,7 +15,10 @@ export const metadata: Metadata = {
 };
 
 /**
- * The ONLY page that embeds the GoHighLevel chat widget.
+ * A dedicated, form-free page for starting a chat. The widget itself is
+ * loaded site-wide from app/layout.tsx (LeadConnector's automated compliance
+ * checker fetches the ROOT domain and greps for the loader, so a sub-page
+ * embed alone fails the check).
  *
  * ⚠️ COMPLIANCE — DO NOT ADD A FORM TO THIS PAGE. ⚠️
  * The A2P attestation states that no forms collecting phone numbers or SMS
@@ -70,14 +71,7 @@ export default function TextUsPage() {
         </div>
       </div>
 
-      {/* strategy="lazyOnload": never blocks the page. */}
-      <Script
-        src="https://widgets.leadconnectorhq.com/loader.js"
-        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
-        data-widget-id={GHL_CHAT_WIDGET_ID}
-        data-source="WEB_USER"
-        strategy="lazyOnload"
-      />
+
     </main>
   );
 }
