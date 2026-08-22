@@ -96,6 +96,11 @@ export const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=${encodeURICompon
  */
 export const FOUNDER_PHOTO = "/founder.png";
 
+/** Kevin's LinkedIn — shown in the founder block as a verifiable identity
+ *  signal (a real, checkable person behind the anti-agency claim). */
+export const FOUNDER_LINKEDIN =
+  "https://www.linkedin.com/in/kevin-ghai-724b1327b/";
+
 /**
  * ⚠️ TODO(BOOKING_URL): set NEXT_PUBLIC_BOOKING_URL to the real GoHighLevel
  * calendar link (Kevin supplies it) so the pre-Zoom nurture sequences fire on

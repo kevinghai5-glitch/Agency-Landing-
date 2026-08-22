@@ -1,5 +1,9 @@
 import Image from "next/image";
-import { FOUNDER_NAME, FOUNDER_PHOTO } from "@/config/brand";
+import {
+  FOUNDER_LINKEDIN,
+  FOUNDER_NAME,
+  FOUNDER_PHOTO,
+} from "@/config/brand";
 
 /**
  * Section 8 — anti-agency honesty. The differentiator stated plainly, then the
@@ -65,6 +69,17 @@ export default function WhyTrust() {
             search to the phone call nobody answered — and I tell you where
             it breaks. Straight.
           </p>
+          {/* A checkable identity behind the anti-agency claim — the point of
+              this section is that a real person is saying it. */}
+          <a
+            href={FOUNDER_LINKEDIN}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:underline text-sm mt-3 inline-flex items-center gap-1"
+          >
+            Connect on LinkedIn
+            <span aria-hidden>↗</span>
+          </a>
         </div>
 
         {/*
