@@ -7,7 +7,6 @@ import {
   CONTACT_MAILTO,
   CONTACT_URL,
   TEXT_US_URL,
-  LEGAL_ENTITY,
   PRIVACY_URL,
   TERMS_URL,
 } from "@/config/brand";
@@ -26,8 +25,16 @@ import {
  * NOTE on the phone number: it is the BRAND-VERIFICATION number, deliberately
  * NOT the GoHighLevel sending number. See config/brand.ts before changing it.
  *
- * The address here is CITY-LEVEL on purpose (BUSINESS_ADDRESS). The full
- * postal address lives on /contact, linked below.
+ * The address here is CITY-LEVEL on purpose (BUSINESS_ADDRESS).
+ *
+ * ⚠️ THE LEGAL ENTITY NAME IS DELIBERATELY ABSENT FROM THIS FOOTER — both
+ * from the trade-name line and from the copyright. ReclaimedHQ is used for
+ * high-volume cold outreach, and publishing the numbered company next to the
+ * brand creates a short path to a home address: brand → site → corporate
+ * name → free Corporations Canada search → registered office. The entity is
+ * still named on /terms and /privacy (one click away, where anyone actually
+ * verifying the business will look), which preserves the A2P corroborating
+ * signal. Do not re-add it here while the registered office is residential.
  */
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -39,9 +46,6 @@ export default function Footer() {
           {/* Operating name + legal entity */}
           <div className="flex flex-col gap-1">
             <span className="font-serif text-ink text-base">{BRAND_NAME}</span>
-            <span className="text-xs">
-              A trade name of {LEGAL_ENTITY}
-            </span>
           </div>
 
           {/* Address · email · phone — the reviewer's checklist */}
@@ -78,7 +82,7 @@ export default function Footer() {
             </a>
           </div>
           <span>
-            © {year} {LEGAL_ENTITY}
+            © {year} {BRAND_NAME}
           </span>
         </div>
       </div>

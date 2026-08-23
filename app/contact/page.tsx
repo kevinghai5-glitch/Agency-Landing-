@@ -7,7 +7,6 @@ import {
   CONTACT_EMAIL,
   CONTACT_MAILTO,
   FULL_ADDRESS_LINES,
-  LEGAL_ENTITY,
 } from "@/config/brand";
 
 export const metadata: Metadata = {
@@ -25,6 +24,9 @@ export const metadata: Metadata = {
  *
  * Phone note: BUSINESS_PHONE is the brand-verification number, NOT the
  * GoHighLevel sending number. See config/brand.ts before changing it.
+ *
+ * ⚠️ The legal entity name is deliberately NOT shown here — see the note in
+ * components/Footer.tsx. It stays on /terms and /privacy only.
  */
 export default function ContactPage() {
   return (
@@ -40,9 +42,6 @@ export default function ContactPage() {
         <div className="mt-10 flex flex-col divide-y divide-border border-y border-border">
           <Row label="Business">
             <p className="text-ink">{BRAND_NAME}</p>
-            <p className="text-muted text-sm mt-1">
-              A trade name of {LEGAL_ENTITY}
-            </p>
           </Row>
 
           <Row label="Email">
