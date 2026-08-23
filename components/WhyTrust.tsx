@@ -63,7 +63,7 @@ export default function WhyTrust() {
               </div>
             </div>
           )}
-          <p className="font-serif text-xl text-ink mt-4">{FOUNDER_NAME}</p>
+          <p className="font-serif text-xl text-ink mt-4">I&apos;m {FOUNDER_NAME}</p>
           <p className="text-muted text-base leading-relaxed mt-2 max-w-md">
             I follow the whole path a lead takes to reach you — from the
             search to the phone call nobody answered — and I tell you where
