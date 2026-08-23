@@ -41,20 +41,25 @@ export const BUSINESS_ADDRESS = "Oakville, Ontario, Canada";
 export const BUSINESS_PHONE = "+1 905-483-7430";
 
 /**
- * FULL postal address — shown on /contact only. The footer deliberately
- * shows city-level (BUSINESS_ADDRESS) instead, so the full address lives on
- * exactly one page.
+ * Address shown on /contact. Currently CITY-LEVEL — the street address was
+ * pulled down once A2P registration was approved, to keep a residential
+ * address off a public, indexed page.
  *
- * Structured as fields rather than one string so gaps are obvious and easy
- * to fill: set `postalCode` (and `line2` if there's a unit) and it renders
- * automatically — no formatting to hand-edit.
+ * ⚠️ Keep an address here. CASL requires commercial electronic messages
+ * (your SMS and email) to identify the sender and give a mailing address
+ * one click away, and carriers re-vet brands after approval. Removing it
+ * entirely is what creates exposure — showing less of it does not.
+ *
+ * TO RESTORE A FULL ADDRESS: fill line1 (and postalCode) below — a virtual
+ * mailbox is the intended replacement. Empty fields are skipped, so it
+ * renders correctly either way with no formatting to hand-edit.
  */
 export const FULL_ADDRESS = {
-  line1: "2485 Whistling Springs Crescent",
+  line1: "", // e.g. a virtual mailbox street address
   line2: "", // unit / suite, if any
   city: "Oakville",
   region: "Ontario",
-  postalCode: "L6M 5G3",
+  postalCode: "", // fill alongside line1
   country: "Canada",
 };
 
@@ -67,8 +72,6 @@ export const FULL_ADDRESS_LINES: string[] = [
     .join(", "),
   FULL_ADDRESS.country,
 ].filter(Boolean);
-
-export const FULL_ADDRESS_IS_INCOMPLETE = !FULL_ADDRESS.postalCode.trim();
 
 /** Digits-only tel: href, so the displayed format stays human-readable. */
 export const BUSINESS_PHONE_TEL = `tel:${BUSINESS_PHONE.replace(/[^\d+]/g, "")}`;
