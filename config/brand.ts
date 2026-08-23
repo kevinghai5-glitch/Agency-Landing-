@@ -6,7 +6,10 @@
  * else.
  */
 export const BRAND_NAME = "ReclaimedHQ";
-export const FOUNDER_NAME = "Kevin Ghai";
+/** First name only — deliberate. The founder block pairs this with a photo
+ *  and a LinkedIn link, so the name shown must not contradict the profile it
+ *  links to; "Kevin" is true and stays consistent with kevin@ on email. */
+export const FOUNDER_NAME = "Kevin";
 
 /**
  * Legal entity behind the brand. Federal CBCA numbered corporation, Ontario.
