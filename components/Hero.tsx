@@ -5,7 +5,15 @@ import ScanFlow from "./ScanFlow";
 import { useScan } from "./ScanContext";
 
 /**
- * Section 1 — the tool IS the hero. No stock photo, no hero image competing
+ * Section 1 — the hero leads with the QUESTION, not the offer.
+ *
+ * The scan is the mechanism, not the promise: the rest of the page argues
+ * the scan is the small half ("not the main event"), so a headline selling
+ * the scan would contradict everything below it. The opening question is
+ * the differentiated thing — it is what the cold call opens with, and
+ * almost no owner can answer it. "Free audit" is what every agency offers.
+ *
+ * Originally: the tool IS the hero. No stock photo, no hero image competing
  * with the input. Pre-scan the headline sets the stakes above the form.
  *
  * POST-SCAN the headline is replaced by an identity header — "What we found
@@ -41,12 +49,16 @@ export default function Hero() {
           ) : (
             <>
               <h1 className="font-serif text-3xl sm:text-5xl leading-[1.1] tracking-tight text-ink text-balance">
-                See where your business is losing the leads you already pay
-                for — in 30 seconds.
+                Do you know how many of last month&apos;s enquiries actually
+                became customers?
               </h1>
-              <p className="text-muted text-lg sm:text-xl leading-relaxed mt-5 max-w-xl mx-auto text-balance">
-                Instant. Free. Built from your real site data. No signup to
-                see your results.
+              <p className="text-ink text-lg sm:text-xl leading-relaxed mt-5 max-w-xl mx-auto text-balance">
+                Most owners don&apos;t. That gap is where the money is — and
+                it isn&apos;t on your website.
+              </p>
+              <p className="text-muted text-base sm:text-lg leading-relaxed mt-4 max-w-xl mx-auto text-balance">
+                Start with a free 30-second scan of what&apos;s visible from
+                outside. Then we&apos;ll look at the part it can&apos;t see.
               </p>
             </>
           )}

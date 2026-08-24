@@ -87,7 +87,7 @@ export const BUSINESS_PHONE_TEL = `tel:${BUSINESS_PHONE.replace(/[^\d+]/g, "")}`
  *   - components/Footer.tsx        (mailto link + visible address)
  *   - app/privacy/page.tsx         (Contact section)
  */
-export const CONTACT_EMAIL = "kevin@reclaimed-hq.com";
+export const CONTACT_EMAIL = "kevin@reclaimedhq.net";
 
 /** Pre-fills the subject so a click opens a ready-to-send draft. */
 export const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(

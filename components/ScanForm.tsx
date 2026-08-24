@@ -97,7 +97,7 @@ export default function ScanForm({
           disabled={pending}
           className="w-full h-14 rounded-lg bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
         >
-          {pending ? "Running your audit…" : "Run my free audit →"}
+          {pending ? "Running your scan…" : "Run my free scan →"}
         </button>
       </div>
 

@@ -123,28 +123,30 @@ export default function InternalLeaksQuiz({
         {stage === "entry" && (
           <>
             <p className="text-xs uppercase tracking-widest text-accent mb-3">
-              What the scan can&apos;t see
+              Step 2 of 3
             </p>
             <p className="font-serif text-2xl sm:text-3xl leading-snug">
-              The scan only sees the outside — and the outside is the small
-              half.
+              That&apos;s what a scan can see.
             </p>
             <p className="text-base sm:text-lg leading-relaxed mt-5 opacity-90">
-              The expensive leaks live inside the systems no scan can reach:
-              what happens <em>after</em> a lead reaches out. Every one of
-              them hits leads you already paid for.
+              The expensive part is what happens after someone reaches out —
+              the 8pm enquiry, the missed call nobody returned, the quote
+              that went quiet. None of it shows up in a scan, and all of it
+              hits leads you already paid for.
+            </p>
+            <p className="text-base sm:text-lg leading-relaxed mt-4 opacity-90">
+              Six questions, sixty seconds, and you&apos;ll have a number.
             </p>
             <div className="mt-7 flex flex-col items-start gap-3">
               <button
                 type="button"
                 onClick={start}
-                className="inline-flex items-center justify-center w-full sm:w-auto px-6 h-14 rounded-lg bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
+                className="inline-flex items-center justify-center w-full px-6 h-14 rounded-lg bg-accent text-surface font-medium text-base sm:text-lg tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
               >
-                Answer 6 quick questions — see what the inside leaks cost →
+                Show me what the inside is costing →
               </button>
               <p className="text-sm opacity-60">
-                Multiple choice, about a minute. No signup, nothing sent
-                anywhere.
+                Multiple choice. No signup, nothing sent anywhere.
               </p>
             </div>
           </>
