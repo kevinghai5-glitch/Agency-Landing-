@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import Script from "next/script";
+import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import {
   BRAND_NAME,
@@ -31,10 +32,12 @@ const fraunces = Fraunces({
   axes: ["opsz"],
 });
 
+// Site default = the landing page. /scan and the secondary pages set their
+// own title/description.
 export const metadata: Metadata = {
-  title: `${BRAND_NAME} — See where you're losing the leads you already pay for`,
+  title: `${BRAND_NAME} — Turn more of your existing leads into paying customers`,
   description:
-    "A free 30-second scan of your real site data. See where visitors and leads leak away before they ever reach you. No signup to see your results.",
+    "We install a full-time AI system into home emergency and exterior businesses that responds to, follows up with, and converts leads around the clock.",
   robots: { index: true, follow: true },
 };
 
@@ -51,13 +54,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
-      {/* The GoHighLevel chat widget is deliberately NOT here. It must only
-          appear pre-scan, and pitch/report are the same route (they swap on
-          scan phase), so it can't be gated by route — see
-          components/ChatWidget.tsx, mounted inside the scan provider in
-          app/page.tsx. Keeping it out of the root layout also keeps it off
-          /privacy. */}
       <body className="font-sans antialiased">
+        {/* The three funnel pages — every page gets the same nav. */}
+        <Nav />
         {children}
         {/* A2P compliance block — required on EVERY page, so it lives in the
             root layout rather than per-page. */}
@@ -71,9 +70,11 @@ export default function RootLayout({
 
             Box 6 of the attestation prohibits forms collecting PHONE NUMBERS
             or SMS OPT-IN CONSENT on any page carrying the widget. The only
-            form on this site is the scan form (business name + website) —
-            it collects neither, so the attestation holds site-wide. Do not
-            add a phone or consent field to any page without moving this. */}
+            form on this site is the scan form on /scan (business name +
+            website) — it collects neither, so the attestation holds
+            site-wide. The landing page (/) and /what-we-do have no forms at
+            all. Do not add a phone or consent field to any page without
+            moving this. */}
         <Script
           src="https://widgets.leadconnectorhq.com/loader.js"
           data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"

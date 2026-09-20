@@ -128,8 +128,36 @@ export const BOOKING_URL_IS_PLACEHOLDER =
 export const PRIVACY_URL = "/privacy";
 export const TERMS_URL = "/terms";
 export const CONTACT_URL = "/contact";
-/** The ONLY page embedding the chat widget — see app/text-us/page.tsx. */
+/** Form-free chat page — see app/text-us/page.tsx. (The widget itself loads
+ *  site-wide from app/layout.tsx.) */
 export const TEXT_US_URL = "/text-us";
+
+/**
+ * THE THREE FUNNEL PAGES — the nav bar (components/Nav.tsx) is exactly these,
+ * in this order. Outreach links to whichever one fits where the prospect is:
+ *
+ *   HOME_URL        the VSL landing page — headline, video, book a call.
+ *   WHAT_WE_DO_URL  what gets installed. (Content pending — stub page.)
+ *   SCAN_URL        the free scan + internal-leaks quiz (the old home page).
+ */
+export const HOME_URL = "/";
+export const WHAT_WE_DO_URL = "/what-we-do";
+export const SCAN_URL = "/scan";
+
+export const NAV_LINKS = [
+  { href: HOME_URL, label: "Home" },
+  { href: WHAT_WE_DO_URL, label: "What we do" },
+  { href: SCAN_URL, label: "Free scan + quiz" },
+] as const;
+
+/**
+ * The VSL on the landing page — an EMBED url (YouTube /embed/…, Vimeo
+ * player, Loom /embed/…, or a GHL-hosted video), not a watch-page link.
+ * Empty until Kevin records it: the player frame renders as a poster with a
+ * "video coming soon" line so the hero never shows a broken iframe.
+ * Consumed by: components/landing/Vsl.tsx.
+ */
+export const VSL_EMBED_URL = "";
 
 /** Shown as the "last updated" date on /terms and /privacy. Bump when the
  *  substance of either page changes. */

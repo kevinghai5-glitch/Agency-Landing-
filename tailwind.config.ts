@@ -30,6 +30,7 @@ const config: Config = {
         muted: "#6B6659",
         accent: "#9A7B3F", // the ONLY accent
         border: "#E7E3D8",
+        wash: "#F4F2EC", // a shade below paper: full-width bands, incoming bubbles
       },
       fontFamily: {
         // Wired to next/font CSS variables in app/layout.tsx

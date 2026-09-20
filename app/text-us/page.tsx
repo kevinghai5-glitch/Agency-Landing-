@@ -27,10 +27,10 @@ export const metadata: Metadata = {
  * This page therefore contains ZERO form elements and zero inputs, so the
  * attestation is unambiguously true. Everything here is plain links.
  *
- * The widget was deliberately moved OFF the landing page: that page carries
- * the scan form, and although it collects only a business name and a website
- * (never a phone number or SMS consent), a reviewer cannot tell that at a
- * glance. Submit THIS url for carrier registration.
+ * This page exists because the scan page (/scan) carries the scan form, and
+ * although it collects only a business name and a website (never a phone
+ * number or SMS consent), a reviewer cannot tell that at a glance. THIS url
+ * is the one submitted for carrier registration.
  */
 export default function TextUsPage() {
   return (
