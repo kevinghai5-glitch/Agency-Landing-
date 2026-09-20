@@ -1,4 +1,5 @@
-import { InkPanel } from "@/components/ui/ink-panel";
+import { InkSequence } from "@/components/ui/ink-panel";
+import { SectionHead } from "@/components/ui/section-head";
 
 /**
  * Section 6 — what the 15-minute walkthrough covers.
@@ -50,38 +51,20 @@ export default function Walkthrough() {
   return (
     <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto">
-        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center">
-          What the walkthrough covers
-        </h2>
-        <p className="text-muted text-lg leading-relaxed mt-5 text-center max-w-xl mx-auto">
-          The scan showed the outside. The walkthrough is mostly about the
-          part it couldn&apos;t see — what happens to a lead after it reaches
-          you — and it ends with a real monthly number built from your
-          figures, not estimates.
-        </p>
+        <SectionHead
+          eyebrow="The call"
+          title="What the walkthrough covers"
+          lede={
+            <>
+              The scan showed the outside. The walkthrough is mostly about
+              the part it couldn&apos;t see — what happens to a lead after
+              it reaches you — and it ends with a real monthly number built
+              from your figures, not estimates.
+            </>
+          }
+        />
 
-        <InkPanel className="mt-9">
-          <ol className="flex flex-col">
-            {COVERS.map((item, i) => (
-              <li
-                key={item.title}
-                className="flex gap-5 sm:gap-6 py-4 first:pt-0 last:pb-0 border-b border-bg/10 last:border-b-0"
-              >
-                <span className="font-serif text-2xl sm:text-3xl text-accent leading-none flex-none w-9 pt-1 tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <p className="font-serif text-lg sm:text-xl leading-snug">
-                    {item.title}
-                  </p>
-                  <p className="text-base leading-relaxed mt-1 opacity-70">
-                    {item.detail}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </InkPanel>
+        <InkSequence items={COVERS} className="mt-9" />
       </div>
     </section>
   );

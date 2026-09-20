@@ -1,83 +1,144 @@
-/**
- * C · What gets installed — the ten pieces, as plain cards. Name in
- * Fraunces, one line of what it does. No icons, no dollar figures, no
- * tiers: the list IS the offer, and it reads as one system rather than
- * ten products.
- */
-const PIECES = [
-  {
-    name: "Instant Lead Response",
-    body: "Someone fills in your form, they get a text and an email in under a minute.",
-  },
-  {
-    name: "Missed Call Text-Back",
-    body: "A call is missed, they get a text before they dial the next result.",
-  },
-  {
-    name: "After-Hours Auto-Reply",
-    body: "Evenings and weekends answered, with a booking link attached.",
-  },
-  {
-    name: "Booking Confirmation + Reminders",
-    body: "Confirmation, then reminders 24 hours and 2 hours before.",
-  },
-  {
-    name: "Cancellation Guard",
-    body: "A cancelled job stops its own reminders. Nobody gets a text about an appointment that isn't happening.",
-  },
-  {
-    name: "No-Show Recovery",
-    body: "They don't turn up, they get chased to rebook.",
-  },
-  {
-    name: "Estimate Follow-Up",
-    body: "Quote sent and gone quiet: four follow-ups over sixteen days.",
-  },
-  {
-    name: "60-Day Nurture",
-    body: "Quoted in spring, closes in autumn. It keeps the conversation alive that long.",
-  },
-  {
-    name: "Review Request",
-    body: "Job finished, review asked for, automatically.",
-  },
-  {
-    name: "Owner Hot-Lead Alert",
-    body: "Strong buying signal, your phone buzzes, you call while they're still holding theirs.",
-  },
-] as const;
+"use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
+import { SectionHead } from "@/components/ui/section-head";
+import { ALWAYS, CONDITIONAL, type Workflow } from "@/config/workflows";
+import ConnectionMap from "./ConnectionMap";
+import WorkflowCard from "./WorkflowCard";
+import { WHO_DOT } from "./DemoPlayer";
+
+/**
+ * C · What gets installed — the connection map, then fifteen clickable
+ * cards in two groups, each opening an animated demo INLINE.
+ *
+ *   map      → hover lights the card, click opens its demo
+ *   grid     → "Ten, always installed" (2 cols) · "Five more, if they fit"
+ *   player   → one component, data-driven (config/workflows.ts)
+ *
+ * One demo open at a time. Focus moves into the panel on open and back to
+ * the card on close; a "hands off to" chip closes this demo and opens the
+ * target's, scrolling its card into view.
+ *
+ * These are animated illustrations: no live GoHighLevel connection, no
+ * fake account, no invented dashboard numbers.
+ */
 export default function Installed() {
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [hoverId, setHoverId] = useState<string | null>(null);
+
+  const cardRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const panelRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  // What to focus after the next render: the panel that just opened, or
+  // the card whose panel just closed.
+  const pending = useRef<{ kind: "panel" | "card"; id: string; scroll: boolean } | null>(null);
+
+  useEffect(() => {
+    const p = pending.current;
+    if (!p) return;
+    pending.current = null;
+    if (p.kind === "panel") {
+      const panel = panelRefs.current[p.id];
+      if (p.scroll) {
+        document
+          .getElementById(`card-${p.id}`)
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      panel?.focus({ preventScroll: true });
+    } else {
+      cardRefs.current[p.id]?.focus({ preventScroll: true });
+    }
+  }, [openId]);
+
+  const toggle = useCallback(
+    (id: string) => {
+      if (openId === id) {
+        pending.current = { kind: "card", id, scroll: false };
+        setOpenId(null);
+      } else {
+        pending.current = { kind: "panel", id, scroll: false };
+        setOpenId(id);
+      }
+    },
+    [openId],
+  );
+
+  // From the map or a hands-off chip: open, and bring the card into view.
+  const navigate = useCallback((id: string) => {
+    pending.current = { kind: "panel", id, scroll: true };
+    setOpenId(id);
+  }, []);
+
+  const renderCard = (w: Workflow) => (
+    <WorkflowCard
+      key={w.id}
+      ref={(el) => {
+        cardRefs.current[w.id] = el;
+      }}
+      panelRef={(el) => {
+        panelRefs.current[w.id] = el;
+      }}
+      workflow={w}
+      open={openId === w.id}
+      highlighted={hoverId === w.id}
+      onToggle={() => toggle(w.id)}
+      onNavigate={navigate}
+    />
+  );
+
   return (
     <section className="px-5 py-8 sm:py-10">
-      <div className="max-w-2xl mx-auto">
-        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center text-balance">
-          Ten things, running whether you&apos;re free or not.
-        </h2>
-        <p className="text-muted text-lg leading-relaxed mt-4 text-center max-w-xl mx-auto">
-          Installed once. Nothing to switch on, nothing to remember.
-        </p>
+      <div className="max-w-3xl mx-auto">
+        <SectionHead
+          eyebrow="What gets installed"
+          title={<>Fifteen things, running whether you&apos;re free or not.</>}
+          lede="Installed once. Nothing to switch on, nothing to remember."
+        />
 
-        <ul className="mt-10 grid gap-4 sm:grid-cols-3">
-          {PIECES.map((piece, i) => (
-            <li
-              key={piece.name}
-              // Ten cards in three columns leaves one orphan; the last card
-              // spans the row so the grid ends on a straight edge.
-              className={`rounded-lg bg-surface border border-border p-5 ${
-                i === PIECES.length - 1 ? "sm:col-span-3" : ""
-              }`}
-            >
-              <h3 className="font-serif text-lg leading-snug text-ink">
-                {piece.name}
-              </h3>
-              <p className="text-muted text-sm leading-relaxed mt-2">
-                {piece.body}
-              </p>
+        {/* PART 3 — the map, above the grid */}
+        <div className="mt-10">
+          <ConnectionMap
+            hoverId={hoverId}
+            openId={openId}
+            onHover={setHoverId}
+            onOpen={navigate}
+          />
+        </div>
+
+        {/* Legend — once, above the grid, never per card */}
+        <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {(
+            [
+              ["customer", "Customer"],
+              ["system", "System"],
+              ["owner", "You"],
+            ] as const
+          ).map(([who, label]) => (
+            <li key={who} className="flex items-center gap-2">
+              <span aria-hidden="true" className={`h-2 w-2 rounded-full ${WHO_DOT[who]}`} />
+              <span className="mono-label text-accent-text">{label}</span>
             </li>
           ))}
         </ul>
+
+        {/* PART 1 — the grid */}
+        <Group title="Ten, always installed">
+          {ALWAYS.map(renderCard)}
+        </Group>
+        <Group title="Five more, if they fit">
+          {CONDITIONAL.map(renderCard)}
+        </Group>
       </div>
     </section>
+  );
+}
+
+function Group({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="mt-8">
+      <h3 className="font-serif font-semibold text-xl text-ink pb-3 border-b border-border">
+        {title}
+      </h3>
+      <ul className="mt-4 grid gap-4 sm:grid-cols-2">{children}</ul>
+    </div>
   );
 }

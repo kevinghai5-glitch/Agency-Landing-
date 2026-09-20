@@ -1,3 +1,5 @@
+import { Eyebrow } from "@/components/ui/eyebrow";
+
 /**
  * A · What this isn't — three negations, thin rules between, then the one
  * sentence that says what it IS. Goes first because the three things it
@@ -22,10 +24,11 @@ export default function NotThis() {
   return (
     <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto">
+        <Eyebrow className="text-center">What this isn&apos;t</Eyebrow>
         <ul className="grid sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border border-y border-border">
           {NOT.map((item) => (
             <li key={item.label} className="py-5 sm:py-2 sm:px-5 first:sm:pl-0 last:sm:pr-0">
-              <p className="font-serif text-lg text-ink">{item.label}</p>
+              <p className="font-serif font-semibold text-lg text-ink">{item.label}</p>
               <p className="text-muted text-base leading-relaxed mt-1">
                 {item.body}
               </p>

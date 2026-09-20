@@ -23,20 +23,24 @@ const THREAD = [
   },
 ] as const;
 
+import { SectionHead } from "@/components/ui/section-head";
+
 export default function Messages() {
   return (
     <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto grid gap-10 sm:grid-cols-2 sm:items-center">
-        <div>
-          <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-balance">
-            You don&apos;t write any of it.
-          </h2>
-          <p className="text-muted text-lg leading-relaxed mt-5">
-            Every message is written, tested, and live on day one — sent in
-            your business&apos;s name, not ours. You can change any of them.
-            Most owners never do.
-          </p>
-        </div>
+        <SectionHead
+          align="left"
+          eyebrow="The messages"
+          title={<>You don&apos;t write any of it.</>}
+          lede={
+            <>
+              Every message is written, tested, and live on day one — sent
+              in your business&apos;s name, not ours. You can change any of
+              them. Most owners never do.
+            </>
+          }
+        />
 
         {/* CSS phone frame */}
         <div className="mx-auto w-full max-w-[280px]" aria-label="Example messages">
@@ -54,10 +58,10 @@ export default function Messages() {
                     className={`flex ${outgoing ? "justify-end" : "justify-start"}`}
                   >
                     <p
-                      className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-sm leading-snug ${
+                      className={`max-w-[85%] rounded-[14px] px-3.5 py-2 text-sm leading-snug ${
                         outgoing
-                          ? "bg-accent text-surface rounded-br-md"
-                          : "bg-wash text-ink rounded-bl-md"
+                          ? "bg-accent text-surface rounded-br"
+                          : "bg-surface-2 text-ink rounded-bl"
                       }`}
                     >
                       {m.text}

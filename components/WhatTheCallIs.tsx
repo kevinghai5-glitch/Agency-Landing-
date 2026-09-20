@@ -9,13 +9,16 @@
  * Register: straight talk, same voice as the rest of the page. No hype, no
  * pressure — the honesty IS the filter.
  */
+import { SectionHead } from "@/components/ui/section-head";
+
 export default function WhatTheCallIs() {
   return (
     <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto">
-        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center">
-          What the call is (and isn&apos;t)
-        </h2>
+        <SectionHead
+          eyebrow="Qualification"
+          title={<>What the call is (and isn&apos;t)</>}
+        />
 
         <div className="mt-8 flex flex-col gap-5 max-w-xl mx-auto">
           <p className="text-ink text-lg leading-relaxed">

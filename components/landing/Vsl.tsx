@@ -12,7 +12,7 @@ import { VSL_EMBED_URL } from "@/config/brand";
 export default function Vsl() {
   return (
     <div
-      className="relative w-full aspect-video overflow-hidden rounded-xl bg-ink shadow-card border border-accent/25"
+      className="relative w-full aspect-video overflow-hidden rounded bg-ink shadow-card border border-accent/25"
       data-quiet=""
     >
       {VSL_EMBED_URL ? (
@@ -55,9 +55,7 @@ export default function Vsl() {
                 <path d="M8 5v14l11-7z" />
               </svg>
             </span>
-            <p className="text-bg/70 text-sm tracking-wide">
-              Video coming soon
-            </p>
+            <p className="mono-label text-on-ink-accent">Video coming soon</p>
           </div>
         </>
       )}

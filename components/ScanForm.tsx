@@ -67,7 +67,7 @@ export default function ScanForm({
             placeholder="Business name"
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
-            className="w-full h-14 px-4 rounded-lg bg-surface border border-border text-ink placeholder:text-muted text-base outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+            className="w-full h-14 px-4 rounded bg-surface border border-border text-ink placeholder:text-muted text-base outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
           />
         </div>
 
@@ -83,7 +83,7 @@ export default function ScanForm({
             placeholder="Website (e.g. yourbusiness.com)"
             value={website}
             onChange={(e) => setWebsite(e.target.value)}
-            className="w-full h-14 px-4 rounded-lg bg-surface border border-border text-ink placeholder:text-muted text-base outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+            className="w-full h-14 px-4 rounded bg-surface border border-border text-ink placeholder:text-muted text-base outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
           />
           {touched && !websiteValid && (
             <p className="text-sm text-muted mt-1">
@@ -95,13 +95,13 @@ export default function ScanForm({
         <button
           type="submit"
           disabled={pending}
-          className="w-full h-14 rounded-lg bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+          className="w-full h-14 rounded-sm bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
         >
           {pending ? "Running your scan…" : "Run my free scan →"}
         </button>
       </div>
 
-      <p className="text-sm text-muted text-center mt-3">
+      <p className="mono-label text-accent-text text-center mt-3">
         Free · no sales pitch · 30 seconds · no signup to see your results.
       </p>
     </form>

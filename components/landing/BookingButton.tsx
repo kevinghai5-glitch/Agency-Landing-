@@ -22,7 +22,7 @@ export default function BookingButton({
     // button — the same placeholder pattern used sitewide.
     return (
       <div
-        className={`w-full max-w-xl rounded-xl border border-dashed border-border bg-surface p-8 text-center ${className}`}
+        className={`w-full max-w-xl rounded border border-dashed border-border bg-surface p-8 text-center ${className}`}
       >
         <p className="text-muted text-sm">
           Booking button renders here. Set{" "}
@@ -38,7 +38,7 @@ export default function BookingButton({
       href={BOOKING_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center w-full max-w-xl h-14 rounded-lg bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 transition-opacity ${className}`}
+      className={`inline-flex items-center justify-center w-full max-w-xl h-14 rounded-sm bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 transition-opacity ${className}`}
     >
       {label}
     </a>

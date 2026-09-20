@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SectionHead } from "@/components/ui/section-head";
 
 /**
  * Section 9 — FAQ accordion, 6 items. The accordion open/close is the only
@@ -67,9 +68,7 @@ export default function Faq({
   return (
     <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto">
-        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center mb-8">
-          Questions
-        </h2>
+        <SectionHead eyebrow="FAQ" title="Questions" className="mb-8" />
         <ul className="flex flex-col divide-y divide-border border-y border-border">
           {items.map((item, i) => {
             const isOpen = open === i;
@@ -81,7 +80,7 @@ export default function Faq({
                   aria-expanded={isOpen}
                   className="w-full flex items-center justify-between gap-4 py-5 text-left"
                 >
-                  <span className="text-ink text-lg font-medium">
+                  <span className="font-serif font-semibold text-lg text-ink">
                     {item.q}
                   </span>
                   <span

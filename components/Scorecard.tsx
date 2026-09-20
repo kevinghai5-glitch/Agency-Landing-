@@ -1,5 +1,6 @@
 import type { ScanResult } from "@/lib/types";
 import type { Findings } from "@/lib/findings";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 /**
  * SECTION A — "What 30 seconds found". The visible leaks.
@@ -50,9 +51,7 @@ export default function Scorecard({
     // data-quiet: the hero's KineticGrid suppresses its interactive effects
     // over this box so the findings read without background motion.
     <div className="w-full max-w-2xl mx-auto" data-quiet="">
-      <p className="text-sm uppercase tracking-widest text-muted text-center mb-6">
-        What 30 seconds found
-      </p>
+      <Eyebrow className="text-center mb-6">What 30 seconds found</Eyebrow>
 
       {allClean && !speedPending ? (
         <p className="font-serif text-2xl sm:text-3xl text-ink leading-snug text-center mb-6">
@@ -61,7 +60,7 @@ export default function Scorecard({
       ) : null}
 
       {allClean && speedPending ? (
-        <div className="bg-surface border border-border rounded-xl p-8 shadow-card mb-6">
+        <div className="bg-surface border border-border rounded p-8 shadow-card mb-6">
           <p className="text-ink text-base leading-relaxed flex items-center gap-2">
             <Spinner />
             Nothing leaking on the outside so far. Measuring how fast{" "}
@@ -74,7 +73,7 @@ export default function Scorecard({
         {leaks.map((leak) => (
           <div
             key={leak.key}
-            className="bg-surface border border-border rounded-xl p-6 shadow-card"
+            className="bg-surface border border-border rounded p-6 shadow-card"
           >
             <div className="flex items-baseline gap-1">
               <span className="stat-number text-5xl sm:text-6xl">

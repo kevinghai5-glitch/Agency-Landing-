@@ -65,7 +65,7 @@ export default function ScanFlow() {
               <button
                 type="button"
                 onClick={viewPrevious}
-                className="text-sm text-muted hover:text-ink transition-colors"
+                className="mono-label text-accent-text hover:text-ink transition-colors"
               >
                 View your previous scan →
               </button>
@@ -85,7 +85,7 @@ export default function ScanFlow() {
               <button
                 type="button"
                 onClick={viewPrevious}
-                className="text-sm text-muted hover:text-ink transition-colors"
+                className="mono-label text-accent-text hover:text-ink transition-colors"
               >
                 View your previous scan →
               </button>
@@ -100,7 +100,7 @@ export default function ScanFlow() {
             <button
               type="button"
               onClick={handleReset}
-              className="text-sm text-muted hover:text-ink transition-colors"
+              className="mono-label text-accent-text hover:text-ink transition-colors"
             >
               ← Scan another site
             </button>

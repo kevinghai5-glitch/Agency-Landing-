@@ -1,6 +1,7 @@
 "use client";
 
 import { BOOKING_URL } from "@/config/brand";
+import { SectionHead } from "@/components/ui/section-head";
 import { useScan } from "./ScanContext";
 import type { ScanFormValues } from "./ScanForm";
 
@@ -44,17 +45,18 @@ export default function BookCall({
           Want these walked on your real numbers?
         </p>
       ) : (
-        <>
-          <p className="font-serif text-2xl sm:text-3xl text-ink leading-snug text-center">
-            One door out of this: the 15-minute walkthrough.
-          </p>
-          <p className="text-ink text-base sm:text-lg leading-relaxed text-center mt-3 max-w-xl mx-auto">
-            I&apos;ll ask how leads get handled once they reach you, put a
-            real monthly number on what&apos;s slipping, and show you what
-            fixing it looks like — and what it costs. Built for you, not a
-            to-do list.
-          </p>
-        </>
+        <SectionHead
+          eyebrow="Next step"
+          title="One door out of this: the 15-minute walkthrough."
+          lede={
+            <>
+              I&apos;ll ask how leads get handled once they reach you, put a
+              real monthly number on what&apos;s slipping, and show you what
+              fixing it looks like — and what it costs. Built for you, not a
+              to-do list.
+            </>
+          }
+        />
       )}
 
       <div className={isInline ? "mt-4 flex flex-col items-center" : "mt-8 flex flex-col items-center"}>
@@ -63,14 +65,14 @@ export default function BookCall({
             href={buildBookingUrl(BOOKING_URL, known)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-full max-w-xl h-14 rounded-lg bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
+            className="inline-flex items-center justify-center w-full max-w-xl h-14 rounded-sm bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
           >
             Book the 15-minute walkthrough →
           </a>
         ) : (
           // Env not set yet (local dev). Honest and obvious rather than a
           // dead button — mirrors the placeholder pattern used sitewide.
-          <div className="w-full max-w-xl rounded-xl border border-dashed border-border bg-surface p-8 text-center">
+          <div className="w-full max-w-xl rounded border border-dashed border-border bg-surface p-8 text-center">
             <p className="text-muted text-sm">
               Booking button renders here. Set{" "}
               <code className="text-ink">NEXT_PUBLIC_BOOKING_URL</code> to the

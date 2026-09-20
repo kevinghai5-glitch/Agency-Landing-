@@ -11,16 +11,36 @@ html {
 }
 
 body {
-  background-color: #fbfaf7; /* bg */
-  color: #1a1814; /* ink */
+  background-color: var(--bg);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Every time, count and duration on the site sits in a fixed-width
+     column — the documents do this, so the site does too. */
+  font-variant-numeric: tabular-nums;
+}
+
+@layer components {
+  /* The mono label — the one ingredient the brochure version was missing.
+     Eyebrows, section numbers, label/value labels, timestamps, status
+     pills, column headers, ghost-button text. NEVER body copy.
+     Colour is set at the use site: text-accent-text on light grounds,
+     text-on-ink-accent on ink. */
+  .mono-label {
+    font-family: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+    font-size: 10.5px;
+    line-height: 1.4;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 /* Big scorecard numbers: serif, gold, tabular figures. */
 .stat-number {
   font-family: var(--font-serif), Georgia, serif;
-  color: #9a7b3f; /* accent */
+  font-weight: 400;
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }
@@ -39,7 +59,8 @@ body {
   animation: soft-pulse 1.4s ease-in-out infinite;
 }
 
-/* Checklist tick reveal — a single restrained transition, no bounce. */
+/* Checklist tick reveal — a single restrained transition, no bounce. Also
+   used by the workflow demo player for each step as it lands. */
 @keyframes tick-in {
   from {
     opacity: 0;
@@ -63,5 +84,3 @@ body {
     animation: none;
   }
 }
-
-

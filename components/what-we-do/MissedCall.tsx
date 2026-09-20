@@ -18,16 +18,17 @@ const TIMELINE = [
   { t: "7:02 PM", text: "Booked for tomorrow at 9." },
 ] as const;
 
+import { SectionHead } from "@/components/ui/section-head";
+
 export default function MissedCall() {
   return (
     <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto">
-        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-center">
-          What it actually looks like.
-        </h2>
-        <p className="text-muted text-lg leading-relaxed mt-4 text-center max-w-xl mx-auto">
-          One missed call, on a Tuesday evening.
-        </p>
+        <SectionHead
+          eyebrow="The missed call"
+          title="What it actually looks like."
+          lede="One missed call, on a Tuesday evening."
+        />
 
         <ol className="mt-10 max-w-xl mx-auto">
           {TIMELINE.map((step, i) => {
@@ -37,16 +38,16 @@ export default function MissedCall() {
                 key={`${step.t}-${i}`}
                 className="grid grid-cols-[4.5rem_1rem_1fr] sm:grid-cols-[5.5rem_1rem_1fr] gap-x-3 sm:gap-x-4"
               >
-                <span className="font-mono text-xs sm:text-sm text-muted tabular-nums pt-1 text-right">
+                <span className="mono-label text-accent-text pt-[0.45rem] text-right">
                   {step.t}
                 </span>
 
                 {/* node + connecting rule */}
                 <span className="relative flex justify-center" aria-hidden="true">
-                  <span className="absolute top-[0.55rem] h-2 w-2 rounded-full bg-accent" />
                   {!last && (
                     <span className="absolute top-[0.55rem] bottom-0 w-px bg-border" />
                   )}
+                  <span className="absolute top-[0.55rem] h-2 w-2 rounded-full bg-accent" />
                 </span>
 
                 <p className={`text-ink text-base sm:text-lg leading-relaxed ${last ? "" : "pb-6"}`}>

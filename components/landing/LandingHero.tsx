@@ -1,4 +1,5 @@
 import KineticGrid from "@/components/ui/kinetic-grid";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import BookingButton from "./BookingButton";
 import Vsl from "./Vsl";
 
@@ -19,7 +20,8 @@ export default function LandingHero() {
     <KineticGrid globalColor="paper" quietSelector="[data-quiet]">
       <section className="px-5 pt-12 pb-10 sm:pt-16 sm:pb-12">
         <div className="max-w-2xl mx-auto text-center" data-quiet="">
-          <h1 className="font-serif text-3xl sm:text-5xl leading-[1.1] tracking-tight text-ink text-balance">
+          <Eyebrow>Lead conversion system</Eyebrow>
+          <h1 className="font-serif font-light text-3xl sm:text-5xl leading-[1.1] tracking-tight text-ink text-balance">
             Turn More of Your Existing Leads Into Paying Customers —
             Automatically.
           </h1>

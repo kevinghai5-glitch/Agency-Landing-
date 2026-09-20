@@ -1,6 +1,7 @@
 "use client";
 
 import KineticGrid from "@/components/ui/kinetic-grid";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import ScanFlow from "./ScanFlow";
 import { useScan } from "./ScanContext";
 
@@ -37,18 +38,20 @@ export default function Hero() {
         <div className="max-w-2xl mx-auto text-center" data-quiet="">
           {isReport ? (
             <>
-              <h1 className="font-serif text-3xl sm:text-5xl leading-[1.1] tracking-tight text-ink text-balance">
+              <Eyebrow>Scan results</Eyebrow>
+              <h1 className="font-serif font-light text-3xl sm:text-5xl leading-[1.1] tracking-tight text-ink text-balance">
                 What we found for {business || "your business"}
               </h1>
               {website && (
-                <p className="text-muted text-base sm:text-lg leading-relaxed mt-4">
+                <p className="mono-label text-accent-text mt-4">
                   {website} · public data only, nothing private
                 </p>
               )}
             </>
           ) : (
             <>
-              <h1 className="font-serif text-3xl sm:text-5xl leading-[1.1] tracking-tight text-ink text-balance">
+              <Eyebrow>Free scan · 30 seconds</Eyebrow>
+              <h1 className="font-serif font-light text-3xl sm:text-5xl leading-[1.1] tracking-tight text-ink text-balance">
                 Do you know how many of last month&apos;s enquiries actually
                 became customers?
               </h1>

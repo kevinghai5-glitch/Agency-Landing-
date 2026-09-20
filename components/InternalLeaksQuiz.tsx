@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import {
   QUIZ_QUESTIONS,
   UNTRACKED_LINE,
@@ -101,7 +102,7 @@ export default function InternalLeaksQuiz({
           textures in negative: the hero's 28px dot grid (light on ink) and a
           warm gold corner light echoing the aurora. Both are static CSS —
           zero per-frame cost (this page has been burned by that before). */}
-      <div className="relative overflow-hidden bg-ink text-bg rounded-xl p-8 sm:p-10 shadow-card border border-accent/25">
+      <div className="relative overflow-hidden bg-ink text-bg rounded p-8 sm:p-10 shadow-card border border-accent/25">
         <div
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none"
@@ -122,30 +123,28 @@ export default function InternalLeaksQuiz({
         <div className="relative">
         {stage === "entry" && (
           <>
-            <p className="text-xs uppercase tracking-widest text-accent mb-3">
-              Step 2 of 3
-            </p>
+            <Eyebrow tone="ink">Step 2 of 3</Eyebrow>
             <p className="font-serif text-2xl sm:text-3xl leading-snug">
               That&apos;s what a scan can see.
             </p>
-            <p className="text-base sm:text-lg leading-relaxed mt-5 opacity-90">
+            <p className="text-base sm:text-lg leading-relaxed mt-5 text-on-ink-muted">
               The expensive part is what happens after someone reaches out —
               the 8pm enquiry, the missed call nobody returned, the quote
               that went quiet. None of it shows up in a scan, and all of it
               hits leads you already paid for.
             </p>
-            <p className="text-base sm:text-lg leading-relaxed mt-4 opacity-90">
+            <p className="text-base sm:text-lg leading-relaxed mt-4">
               Six questions, sixty seconds, and you&apos;ll have a number.
             </p>
             <div className="mt-7 flex flex-col items-start gap-3">
               <button
                 type="button"
                 onClick={start}
-                className="inline-flex items-center justify-center w-full px-6 h-14 rounded-lg bg-accent text-surface font-medium text-base sm:text-lg tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
+                className="inline-flex items-center justify-center w-full px-6 h-14 rounded-sm bg-accent text-surface font-medium text-base sm:text-lg tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
               >
                 Show me what the inside is costing →
               </button>
-              <p className="text-sm opacity-60">
+              <p className="mono-label text-on-ink-accent">
                 Multiple choice. No signup, nothing sent anywhere.
               </p>
             </div>
@@ -163,7 +162,7 @@ export default function InternalLeaksQuiz({
                   key={c.label}
                   type="button"
                   onClick={() => pickTrade(c.key)}
-                  className="px-4 py-2 rounded-lg border border-bg/25 text-sm text-bg/90 hover:border-accent hover:text-bg transition-colors"
+                  className="px-4 py-2 rounded-full border border-on-ink-rule text-sm text-bg hover:border-accent transition-colors"
                 >
                   {c.label}
                 </button>
@@ -212,11 +211,11 @@ function Question({
 
   return (
     <div>
-      <div className="flex items-center justify-between text-sm opacity-60">
+      <div className="flex items-center justify-between mono-label text-on-ink-accent">
         <button
           type="button"
           onClick={onBack}
-          className="hover:opacity-100 transition-opacity"
+          className="hover:text-bg transition-colors"
         >
           ← Back
         </button>
@@ -224,7 +223,7 @@ function Question({
           Question {qIndex + 1} of {QUIZ_QUESTIONS.length}
         </span>
       </div>
-      <div className="mt-3 h-1 rounded-full bg-bg/15 overflow-hidden">
+      <div className="mt-3 h-1 rounded-none bg-on-ink-rule overflow-hidden">
         <div
           className="h-full bg-accent transition-all duration-300"
           style={{ width: `${progress}%` }}
@@ -241,10 +240,10 @@ function Question({
             key={opt.label}
             type="button"
             onClick={() => onAnswer(i)}
-            className={`w-full text-left px-4 py-3 rounded-lg border text-base leading-snug transition-colors ${
+            className={`w-full text-left px-4 py-3 rounded border text-base leading-snug transition-colors ${
               selected === i
                 ? "border-accent bg-accent/15 text-bg"
-                : "border-bg/25 text-bg/90 hover:border-accent"
+                : "border-on-ink-rule text-bg hover:border-accent"
             }`}
           >
             {opt.label}
@@ -273,20 +272,18 @@ function QuizResults({
     // stays but its qualification line does the honest gatekeeping.
     return (
       <div>
-        <p className="text-sm uppercase tracking-widest opacity-60">
-          What your six answers say
-        </p>
-        <p className="font-serif text-2xl sm:text-3xl leading-snug mt-4">
+        <Eyebrow tone="ink">What your six answers say</Eyebrow>
+        <p className="font-serif text-2xl sm:text-3xl leading-snug">
           By your answers, the inside of your business sounds tight.
         </p>
         <ul className="mt-5 flex flex-col gap-2">
           {cleans.map((c) => (
-            <li key={c.q.id} className="text-base leading-relaxed opacity-80">
+            <li key={c.q.id} className="text-base leading-relaxed text-on-ink-muted">
               ✓ {c.text}
             </li>
           ))}
         </ul>
-        <p className="text-base sm:text-lg leading-relaxed mt-6 opacity-90">
+        <p className="text-base sm:text-lg leading-relaxed mt-6">
           If that holds up in your real numbers, you don&apos;t need the
           walkthrough — and if you book it anyway, I&apos;ll tell you exactly
           that. The scan above is the only place we saw anything leaking.
@@ -294,7 +291,7 @@ function QuizResults({
         {/* Same scope disclosure as the leaky path — a clean six is not a
             clean seventeen, and letting someone believe otherwise would be
             the same credibility failure as inventing a leak. */}
-        <p className="text-base leading-relaxed mt-4 opacity-90">
+        <p className="text-base leading-relaxed mt-4 text-on-ink-muted">
           Worth saying: six is what a minute of questions can cover. A full
           diagnosis looks at seventeen — but nothing you&apos;ve told me here
           says you&apos;re bleeding.
@@ -306,26 +303,24 @@ function QuizResults({
 
   return (
     <div>
-      <p className="text-sm uppercase tracking-widest opacity-60">
-        What your six answers say
-      </p>
+      <Eyebrow tone="ink">What your six answers say</Eyebrow>
 
       {/* 1 — per-leak findings, worst first */}
-      <div className="mt-6 flex flex-col gap-6">
+      <div className="mt-2 flex flex-col gap-6">
         {leaks.map((l) => (
           <div key={l.q.id}>
             <p className="text-base sm:text-lg font-medium leading-snug">
               {l.restated}
             </p>
             {l.untracked && (
-              <p className="text-sm leading-relaxed mt-1 opacity-70 italic">
+              <p className="text-sm leading-relaxed mt-1 text-on-ink-muted italic">
                 {UNTRACKED_LINE}
               </p>
             )}
-            <p className="text-base leading-relaxed mt-1 opacity-70">
+            <p className="text-base leading-relaxed mt-1 text-on-ink-muted">
               {l.q.mechanism}
             </p>
-            <p className="text-base leading-relaxed mt-1 text-accent">
+            <p className="text-base leading-relaxed mt-1 text-on-ink-accent">
               Roughly {usd(l.lo)}–{usd(l.hi)} a month at {phrase}
               {l.untracked ? " — counted cautiously, as an assumption" : ""}.
             </p>
@@ -336,7 +331,7 @@ function QuizResults({
       {cleans.length > 0 && (
         <ul className="mt-6 flex flex-col gap-2">
           {cleans.map((c) => (
-            <li key={c.q.id} className="text-base leading-relaxed opacity-70">
+            <li key={c.q.id} className="text-base leading-relaxed text-on-ink-muted">
               ✓ {c.text}
             </li>
           ))}
@@ -358,7 +353,7 @@ function QuizResults({
           And that&apos;s six leaks. A full diagnosis covers seventeen — the
           other eleven aren&apos;t in that number.
         </p>
-        <p className="text-sm leading-relaxed mt-3 opacity-60">
+        <p className="text-sm leading-relaxed mt-3 text-on-ink-muted">
           Based on your six answers, {phrase}, and published industry
           benchmarks. On the call we start from these answers and go further —
           your actual lead volume, what a job is really worth to you, and the
@@ -372,17 +367,15 @@ function QuizResults({
           What changes
         </p>
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-base leading-relaxed">
-          <p className="text-sm uppercase tracking-widest opacity-50 sm:mb-1">
-            Today
-          </p>
-          <p className="hidden sm:block text-sm uppercase tracking-widest text-accent/80 sm:mb-1">
+          <p className="mono-label text-on-ink-accent sm:mb-1">Today</p>
+          <p className="hidden sm:block mono-label text-on-ink-accent sm:mb-1">
             With the system live
           </p>
           {leaks.map((l) => (
             <Row key={l.q.id} before={l.beforeLine} after={l.q.after} />
           ))}
         </div>
-        <p className="text-base sm:text-lg leading-relaxed mt-6 opacity-90">
+        <p className="text-base sm:text-lg leading-relaxed mt-6">
           This is what we build — done for you, running inside your business
           in weeks. That&apos;s the transformation the walkthrough maps out
           on your numbers.
@@ -397,9 +390,9 @@ function QuizResults({
 function Row({ before, after }: { before: string; after: string }) {
   return (
     <>
-      <p className="opacity-60">— {before}</p>
+      <p className="text-on-ink-muted">— {before}</p>
       <p className="mb-3 sm:mb-1">
-        <span aria-hidden className="text-accent">
+        <span aria-hidden className="text-on-ink-accent">
           →{" "}
         </span>
         {after}
@@ -414,7 +407,7 @@ function RedoLink({ onRedo }: { onRedo: () => void }) {
       <button
         type="button"
         onClick={onRedo}
-        className="text-sm opacity-50 hover:opacity-90 transition-opacity"
+        className="mono-label text-on-ink-accent hover:text-bg transition-colors"
       >
         Redo the questions →
       </button>

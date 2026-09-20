@@ -89,7 +89,7 @@ function Row({
 }) {
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-6 py-5">
-      <p className="text-muted text-sm uppercase tracking-widest sm:w-32 sm:flex-none sm:pt-1">
+      <p className="mono-label text-accent-text sm:w-32 sm:flex-none sm:pt-[0.4rem]">
         {label}
       </p>
       <div className="text-base leading-relaxed">{children}</div>

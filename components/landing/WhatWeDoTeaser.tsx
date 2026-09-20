@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SectionHead } from "@/components/ui/section-head";
 import { WHAT_WE_DO_URL } from "@/config/brand";
 
 /**
@@ -13,17 +14,20 @@ export default function WhatWeDoTeaser() {
   return (
     <section className="px-5 py-8 sm:py-10">
       <div className="max-w-2xl mx-auto text-center">
-        <h2 className="font-serif text-2xl sm:text-4xl leading-tight tracking-tight text-ink text-balance">
-          What we do
-        </h2>
-        <p className="text-muted text-lg leading-relaxed mt-5 max-w-xl mx-auto text-balance">
-          One system, built for your business and managed for you, that picks
-          up every enquiry the moment it arrives and keeps following up until
-          it&apos;s booked or dead.
-        </p>
+        <SectionHead
+          eyebrow="What gets installed"
+          title="What we do"
+          lede={
+            <>
+              One system, built for your business and managed for you, that
+              picks up every enquiry the moment it arrives and keeps
+              following up until it&apos;s booked or dead.
+            </>
+          }
+        />
         <Link
           href={WHAT_WE_DO_URL}
-          className="inline-block mt-6 text-accent text-base hover:underline"
+          className="mono-label text-accent-text inline-block mt-6 hover:text-ink transition-colors"
         >
           See what we install →
         </Link>

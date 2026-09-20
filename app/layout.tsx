@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -17,19 +17,30 @@ if (BOOKING_URL_IS_PLACEHOLDER) {
   );
 }
 
-// Body: Inter. Headings + big scorecard numbers: Fraunces (refined serif).
-// Both self-hosted via next/font — no render-blocking external font requests.
+// THE DOCUMENT SYSTEM's three faces, so the site, the proposal and the
+// go-live manual are visibly one company:
+//   Body                       Inter
+//   Headings / big numbers     Source Serif 4 — the face on the SOP covers.
+//                              h1 at 300, section heads 400, card titles 600.
+//   Labels / timestamps / pills JetBrains Mono, via the .mono-label class.
+// All self-hosted via next/font — no render-blocking external font requests.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   variable: "--font-serif",
   display: "swap",
   axes: ["opsz"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
 });
 
 // Site default = the landing page. /scan and the secondary pages set their
@@ -53,7 +64,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${sourceSerif.variable} ${jetbrainsMono.variable}`}
+    >
       <body className="font-sans antialiased">
         {/* The three funnel pages — every page gets the same nav. */}
         <Nav />
