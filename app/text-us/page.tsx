@@ -34,9 +34,10 @@ export const metadata: Metadata = {
  */
 export default function TextUsPage() {
   return (
-    <main className="px-5 py-12 sm:py-16">
+    <main>
+      <div className="px-5 py-12 sm:py-16">
       <div className="max-w-2xl mx-auto">
-        <h1 className="font-serif text-3xl sm:text-4xl leading-tight tracking-tight text-ink">
+        <h1 className="font-sans font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-ink">
           Text us
         </h1>
         <p className="text-ink text-lg leading-relaxed mt-5 max-w-xl">
@@ -72,6 +73,7 @@ export default function TextUsPage() {
       </div>
 
 
+    </div>
     </main>
   );
 }

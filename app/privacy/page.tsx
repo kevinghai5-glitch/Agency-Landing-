@@ -30,9 +30,10 @@ export const metadata: Metadata = {
  */
 export default function PrivacyPage() {
   return (
-    <main className="px-5 py-12 sm:py-16">
+    <main>
+      <div className="px-5 py-12 sm:py-16">
       <div className="max-w-2xl mx-auto">
-        <h1 className="font-serif text-3xl sm:text-4xl leading-tight tracking-tight text-ink">
+        <h1 className="font-sans font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-ink">
           Privacy Policy
         </h1>
         <p className="text-muted text-sm mt-3">
@@ -215,6 +216,7 @@ export default function PrivacyPage() {
           </Link>
         </div>
       </div>
+    </div>
     </main>
   );
 }
@@ -228,7 +230,7 @@ function Section({
 }) {
   return (
     <section>
-      <h2 className="font-serif text-xl text-ink">{title}</h2>
+      <h2 className="font-sans font-bold text-xl text-ink">{title}</h2>
       <div className="mt-3 flex flex-col gap-3 text-ink text-base leading-relaxed">
         {children}
       </div>

@@ -97,12 +97,12 @@ export default function InternalLeaksQuiz({
   }
 
   return (
-    <section className="w-full max-w-2xl mx-auto mt-8" data-quiet="">
+    <section className="mx-auto w-full max-w-3xl mt-8">
       {/* The one inverted-ink panel on the page, so it carries the theme's
           textures in negative: the hero's 28px dot grid (light on ink) and a
           warm gold corner light echoing the aurora. Both are static CSS —
           zero per-frame cost (this page has been burned by that before). */}
-      <div className="relative overflow-hidden bg-ink text-bg rounded p-8 sm:p-10 shadow-card border border-accent/25">
+      <div className="relative overflow-hidden rounded-[32px] bg-ink p-8 text-bg sm:p-10">
         <div
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none"
@@ -124,7 +124,7 @@ export default function InternalLeaksQuiz({
         {stage === "entry" && (
           <>
             <Eyebrow tone="ink">Step 2 of 3</Eyebrow>
-            <p className="font-serif text-2xl sm:text-3xl leading-snug">
+            <p className="font-sans font-bold text-2xl sm:text-3xl leading-snug">
               That&apos;s what a scan can see.
             </p>
             <p className="text-base sm:text-lg leading-relaxed mt-5 text-on-ink-muted">
@@ -140,11 +140,11 @@ export default function InternalLeaksQuiz({
               <button
                 type="button"
                 onClick={start}
-                className="inline-flex items-center justify-center w-full px-6 h-14 rounded-sm bg-accent text-surface font-medium text-base sm:text-lg tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
+                className="inline-flex items-center justify-center w-full px-6 h-14 rounded-full bg-accent text-surface font-semibold text-base sm:text-lg tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
               >
                 Show me what the inside is costing →
               </button>
-              <p className="mono-label text-on-ink-accent">
+              <p className="text-sm text-on-ink-muted">
                 Multiple choice. No signup, nothing sent anywhere.
               </p>
             </div>
@@ -153,7 +153,7 @@ export default function InternalLeaksQuiz({
 
         {stage === "trade" && (
           <>
-            <p className="font-serif text-xl sm:text-2xl leading-snug">
+            <p className="font-sans font-bold text-xl sm:text-2xl leading-snug">
               Quick setup — what kind of business is this?
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
@@ -223,14 +223,14 @@ function Question({
           Question {qIndex + 1} of {QUIZ_QUESTIONS.length}
         </span>
       </div>
-      <div className="mt-3 h-1 rounded-none bg-on-ink-rule overflow-hidden">
+      <div className="mt-3 h-1 rounded-full bg-on-ink-rule overflow-hidden">
         <div
           className="h-full bg-accent transition-all duration-300"
           style={{ width: `${progress}%` }}
         />
       </div>
 
-      <p className="font-serif text-xl sm:text-2xl leading-snug mt-6">
+      <p className="font-sans font-bold text-xl sm:text-2xl leading-snug mt-6">
         {q.question}
       </p>
 
@@ -240,10 +240,10 @@ function Question({
             key={opt.label}
             type="button"
             onClick={() => onAnswer(i)}
-            className={`w-full text-left px-4 py-3 rounded border text-base leading-snug transition-colors ${
+            className={`w-full rounded-full px-5 py-3 text-left text-base font-semibold leading-snug transition-colors ${
               selected === i
-                ? "border-accent bg-accent/15 text-bg"
-                : "border-on-ink-rule text-bg hover:border-accent"
+                ? "bg-accent text-surface"
+                : "bg-bg/10 text-bg hover:bg-bg/15"
             }`}
           >
             {opt.label}
@@ -273,7 +273,7 @@ function QuizResults({
     return (
       <div>
         <Eyebrow tone="ink">What your six answers say</Eyebrow>
-        <p className="font-serif text-2xl sm:text-3xl leading-snug">
+        <p className="font-sans font-bold text-2xl sm:text-3xl leading-snug">
           By your answers, the inside of your business sounds tight.
         </p>
         <ul className="mt-5 flex flex-col gap-2">
@@ -340,7 +340,7 @@ function QuizResults({
 
       {/* 2 — the monthly total */}
       <div className="mt-8 border-l-2 border-accent pl-5 py-1">
-        <p className="font-serif text-xl sm:text-2xl leading-snug">
+        <p className="font-sans font-bold text-xl sm:text-2xl leading-snug">
           {capped ? "Conservatively, that" : "That"} puts the inside leaks
           somewhere in the range of {usd(totalLo)}–{usd(totalHi)} a month —
           every month it stays like this.
@@ -363,7 +363,7 @@ function QuizResults({
 
       {/* 3 — transformation, mirrored from THEIR answers */}
       <div className="mt-9">
-        <p className="font-serif text-xl sm:text-2xl leading-snug">
+        <p className="font-sans font-bold text-xl sm:text-2xl leading-snug">
           What changes
         </p>
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-base leading-relaxed">
@@ -407,7 +407,7 @@ function RedoLink({ onRedo }: { onRedo: () => void }) {
       <button
         type="button"
         onClick={onRedo}
-        className="mono-label text-on-ink-accent hover:text-bg transition-colors"
+        className="text-sm font-medium text-on-ink-accent hover:text-bg transition-colors"
       >
         Redo the questions →
       </button>

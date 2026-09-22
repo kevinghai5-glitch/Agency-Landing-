@@ -35,7 +35,7 @@ export function Callout({
       {title && (
         <p
           className={cn(
-            "font-serif text-xl sm:text-2xl leading-snug",
+            "font-sans font-bold text-xl sm:text-2xl leading-snug",
             ink ? "text-bg" : "text-ink",
           )}
         >

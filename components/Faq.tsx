@@ -4,8 +4,8 @@ import { useState } from "react";
 import { SectionHead } from "@/components/ui/section-head";
 
 /**
- * Section 9 — FAQ accordion, 6 items. The accordion open/close is the only
- * animation permitted here besides the scan checklist. No dollar figures, no
+ * Section 9 — FAQ accordion, 6 items. Opens and closes with no animation
+ * (the plus icon rotates, nothing else). No dollar figures, no
  * hype vocabulary, never the word "guaranteed" — the paid done-for-you
  * service is stated plainly as the business model, nothing more.
  */
@@ -66,10 +66,10 @@ export default function Faq({
       : ITEMS;
 
   return (
-    <section className="px-5 py-8 sm:py-10">
-      <div className="max-w-2xl mx-auto">
-        <SectionHead eyebrow="FAQ" title="Questions" className="mb-8" />
-        <ul className="flex flex-col divide-y divide-border border-y border-border">
+    <section className="mx-auto max-w-[1600px] px-5 pt-9 sm:px-8 xl:px-12">
+      <div className="panel">
+        <SectionHead title="FAQ" className="mb-5" />
+        <ul className="flex flex-col gap-2">
           {items.map((item, i) => {
             const isOpen = open === i;
             return (
@@ -78,9 +78,10 @@ export default function Faq({
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
                   aria-expanded={isOpen}
-                  className="w-full flex items-center justify-between gap-4 py-5 text-left"
+                  aria-controls={`faq-${i}`}
+                  className="on-panel flex w-full items-center justify-between gap-4 rounded-2xl bg-surface px-5 py-4 text-left"
                 >
-                  <span className="font-serif font-semibold text-lg text-ink">
+                  <span className="text-base font-semibold text-ink">
                     {item.q}
                   </span>
                   <span
@@ -92,18 +93,13 @@ export default function Faq({
                     <PlusIcon />
                   </span>
                 </button>
-                <div
-                  className={`grid transition-all duration-200 ease-out ${
-                    isOpen
-                      ? "grid-rows-[1fr] opacity-100 pb-5"
-                      : "grid-rows-[0fr] opacity-0"
-                  }`}
-                >
-                  <div className="overflow-hidden">
-                    <p className="text-muted text-base leading-relaxed">
-                      {item.a}
-                    </p>
-                  </div>
+                {/* Closed answers are display:none — not opacity 0 — so
+                    they are hidden from screen readers and find-in-page too,
+                    and the panel holds no invisible text at rest. */}
+                <div id={`faq-${i}`} hidden={!isOpen} className="pb-5">
+                  <p className="max-w-[68ch] px-5 pb-2 pt-3 text-base leading-relaxed text-muted">
+                    {item.a}
+                  </p>
                 </div>
               </li>
             );

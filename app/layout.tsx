@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { AuroraGround } from "@/components/ui/aurora-ground";
 import {
   BRAND_NAME,
   BOOKING_URL_IS_PLACEHOLDER,
@@ -17,29 +18,13 @@ if (BOOKING_URL_IS_PLACEHOLDER) {
   );
 }
 
-// THE DOCUMENT SYSTEM's three faces, so the site, the proposal and the
-// go-live manual are visibly one company:
-//   Body                       Inter
-//   Headings / big numbers     Source Serif 4 — the face on the SOP covers.
-//                              h1 at 300, section heads 400, card titles 600.
-//   Labels / timestamps / pills JetBrains Mono, via the .mono-label class.
-// All self-hosted via next/font — no render-blocking external font requests.
-const inter = Inter({
+// ONE face: Plus Jakarta Sans — the geometric grotesk the approved mock
+// uses (the closest Google Fonts gets to Clay's Roobert). Headings 600,
+// body 500, labels 600/700. Self-hosted via next/font.
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin"],
-  variable: "--font-serif",
-  display: "swap",
-  axes: ["opsz"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
   display: "swap",
 });
 
@@ -48,7 +33,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: `${BRAND_NAME} — Turn more of your existing leads into paying customers`,
   description:
-    "We install a full-time AI system into home emergency and exterior businesses that responds to, follows up with, and converts leads around the clock.",
+    "We install a full-time AI system into home exterior and emergency service businesses that responds to, follows up with, and converts leads around the clock.",
   robots: { index: true, follow: true },
 };
 
@@ -66,15 +51,27 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sourceSerif.variable} ${jetbrainsMono.variable}`}
+      className={jakarta.variable}
+      // data-theme is set by the script below before React hydrates.
+      suppressHydrationWarning
     >
-      <body className="font-sans antialiased">
-        {/* The three funnel pages — every page gets the same nav. */}
-        <Nav />
-        {children}
-        {/* A2P compliance block — required on EVERY page, so it lives in the
-            root layout rather than per-page. */}
-        <Footer />
+      <body className="font-sans font-medium antialiased">
+        {/* Re-applies a saved dark choice before first paint, so there is
+            no white flash. Light is the default; see components/ThemeToggle. */}
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`try{if(localStorage.getItem("reclaimedhq:theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}`}
+        </Script>
+        {/* The aurora is the GROUND of every page — a wash at the top behind
+            the nav and hero, a fainter one at the bottom behind the closing
+            block and footer — so nav and footer sit on it, transparent. */}
+        <AuroraGround>
+          {/* The three funnel pages — every page gets the same nav. */}
+          <Nav />
+          {children}
+          {/* A2P compliance block — required on EVERY page, so it lives in
+              the root layout rather than per-page. */}
+          <Footer />
+        </AuroraGround>
 
         {/* GoHighLevel chat widget — site-wide, INCLUDING the root URL.
             LeadConnector's compliance checker is automated: it fetches the
@@ -86,14 +83,17 @@ export default function RootLayout({
             or SMS OPT-IN CONSENT on any page carrying the widget. The only
             form on this site is the scan form on /scan (business name +
             website) — it collects neither, so the attestation holds
-            site-wide. The landing page (/) and /what-we-do have no forms at
-            all. Do not add a phone or consent field to any page without
-            moving this. */}
+            site-wide. The landing page (/), /what-we-do and
+            /meet-the-founder have no forms at all. Do not add a phone or
+            consent field to any page without moving this.
+
+            The attributes are GHL's embed snippet verbatim (src,
+            data-resources-url, data-widget-id) — how the bubble behaves
+            (greeting, auto-open, position) is configured in GHL, not here. */}
         <Script
           src="https://widgets.leadconnectorhq.com/loader.js"
           data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
           data-widget-id={GHL_CHAT_WIDGET_ID}
-          data-source="WEB_USER"
           strategy="lazyOnload"
         />
       </body>

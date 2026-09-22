@@ -1,49 +1,36 @@
 import type { Metadata } from "next";
 import { BRAND_NAME } from "@/config/brand";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import WwdHero from "@/components/what-we-do/WwdHero";
-import NotThis from "@/components/what-we-do/NotThis";
-import MissedCall from "@/components/what-we-do/MissedCall";
-import Installed from "@/components/what-we-do/Installed";
-import Messages from "@/components/what-we-do/Messages";
-import HowItGoes from "@/components/what-we-do/HowItGoes";
+import Board from "@/components/what-we-do/Board";
 import WwdClosing from "@/components/what-we-do/WwdClosing";
 
 export const metadata: Metadata = {
   title: `What we do — ${BRAND_NAME}`,
   description:
-    "The AI system we install into home exterior and emergency service businesses to respond to, follow up with, and convert leads around the clock.",
+    "The AI system we install into home exterior and emergency service businesses to answer every enquiry they already get — around the clock.",
 };
 
 /**
- * /what-we-do — what gets installed. One of the three funnel pages
- * (config/brand.ts NAV_LINKS). Section order is FIXED:
+ * /what-we-do — the approved mock:
  *
- *   Hero        h1 + intro (wording fixed) + one breadth line
- *   A NotThis   not a website · not more leads · not another app
- *   B MissedCall the Tuesday-evening timeline — the page's key block
- *   C Installed the ten pieces, as cards
- *   D Messages  "you don't write any of it" + the phone
- *   E HowItGoes call → build → go-live
- *   F Closing   wash band, Book a Strategy Call, scan as the soft door
+ *   Hero       text only: h1 + one line + Book a Strategy Call / run the scan
+ *   Installed  one panel: ten cards, then five conditional — each opens its
+ *              demo INLINE (Board.tsx → WorkflowCard → DemoPanel)
+ *   The map    five ways in → one chain → the pipeline (FitsTogether)
+ *   Closing    the stake and the two doors, on the bottom aurora
  *
- * RULES: no vertical list or "who it's for" section (narrowing costs
- * inbound); no pricing or dollar figures; no testimonials, logos, case
- * studies, counters, stock photos or AI imagery; no forms of any kind —
- * the A2P attestation depends on zero phone/consent fields site-wide.
+ * RULES: no pricing or dollar figures; no testimonials, logos, case
+ * studies, counters, stock or AI imagery; no forms of any kind — the A2P
+ * attestation depends on zero phone/consent fields site-wide (the demo's
+ * "form" is drawn with static divs); no live GoHighLevel connection.
+ * Nav, footer and chat widget come from the root layout, untouched.
  */
 export default function WhatWeDoPage() {
   return (
     <main>
       <WwdHero />
-      <AuroraBackground>
-        <NotThis />
-        <MissedCall />
-        <Installed />
-        <Messages />
-        <HowItGoes />
-        <WwdClosing />
-      </AuroraBackground>
+      <Board />
+      <WwdClosing />
     </main>
   );
 }

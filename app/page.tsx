@@ -1,41 +1,38 @@
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import LandingHero from "@/components/landing/LandingHero";
-import Proof from "@/components/landing/Proof";
-import WhatWeDoTeaser from "@/components/landing/WhatWeDoTeaser";
+import TradesTicker from "@/components/landing/TradesTicker";
 import NewStandard from "@/components/landing/NewStandard";
+import WatchPanel from "@/components/landing/WatchPanel";
+import CallAndSystem from "@/components/landing/CallAndSystem";
 import LandingFinalCta from "@/components/landing/LandingFinalCta";
 
 /**
- * / — the VSL landing page. One of the three funnel pages in the nav
- * (config/brand.ts NAV_LINKS); the other two are /what-we-do and /scan.
+ * / — the home page, built from the approved mock (V3 final):
  *
- * Section order is FIXED:
- *   1. Hero — headline, one-line how, the VSL, "Book a Strategy Call" +
- *      the revenue-on-the-table qualifier.
- *   2. Proof — case studies / testimonials. Renders nothing until
- *      config/proof.ts has real entries.
- *   3. What we do — a pointer to /what-we-do, not the content.
- *   4. New standard — the early-mover urgency beat.
- *   5. Final CTA — "Book a Strategy Call" again.
+ *   1. Hero — headline, one sentence, gold + white pills, the drawn phone
+ *      scene; then the "Built for" niche chips as a news-bar ticker.
+ *   2. Where this is going — the new-standard card: manual vs. system,
+ *      crew photo on the manual side.
+ *   3. Watch it run — the VSL in a sky panel.
+ *   4. The call · The system — two halves: the timeline and the compact
+ *      workflows card with "See all fifteen →".
+ *   5. Close — one line, one gold pill, on the bottom aurora.
  *
- * No scan state on this page — no ScanProvider, no forms of any kind. The
- * scan + quiz live at /scan and keep their own two-mode pitch/report page.
+ * The founder block ("I'm Kevin") has its own page now — /meet-the-founder,
+ * in the nav.
  *
- * COPY RULES carry over from the scan page: no precise invented dollar
- * figures, no service pricing, no "guaranteed", no hype vocabulary, no
- * promise of an emailed report. This page sells the system through the
- * video; the copy around it stays short.
+ * No forms of any kind on this page (the scene's "form" is drawn).
+ * Copy rules carry over: no invented dollar figures, no pricing, no
+ * "guaranteed", no hype vocabulary.
  */
 export default function Page() {
   return (
     <main>
       <LandingHero />
-      <AuroraBackground>
-        <Proof />
-        <WhatWeDoTeaser />
-        <NewStandard />
-        <LandingFinalCta />
-      </AuroraBackground>
+      <TradesTicker />
+      <NewStandard />
+      <WatchPanel />
+      <CallAndSystem />
+      <LandingFinalCta />
     </main>
   );
 }

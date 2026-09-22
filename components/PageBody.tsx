@@ -6,8 +6,8 @@ import { useScan } from "./ScanContext";
 /**
  * The page has TWO MODES, and everything below the hero swaps between them:
  *
- *   pitch  — nobody has scanned yet. The marketing case: reframe, how it
- *            works, what the walkthrough covers, proof, FAQ, repeat the tool.
+ *   pitch  — nobody has scanned yet. Currently NOTHING (the hero is the
+ *            whole page); the slot stays so a section can come back.
  *   report — a scan has completed. The page becomes a DOCUMENT about their
  *            business. Sections that argue for running a scan are gone (they
  *            already ran it) and the only action left is booking the call.

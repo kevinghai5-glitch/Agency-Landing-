@@ -22,7 +22,7 @@ export default function Recurrence({
   const hi = "$" + sumHi.toLocaleString("en-US");
 
   return (
-    <section className="w-full max-w-2xl mx-auto mt-8" data-quiet="">
+    <section className="mx-auto mt-8 w-full max-w-3xl px-2">
       <Callout title={<>These aren&apos;t one-time losses.</>}>
         <p className="text-ink text-base sm:text-lg leading-relaxed">
           Add up just the leaks visible from the outside and it comes to

@@ -1,20 +1,14 @@
 import { VSL_EMBED_URL } from "@/config/brand";
 
 /**
- * The VSL slot — a 16:9 frame in the hero, directly under the subheadline.
- *
- * With VSL_EMBED_URL set it is the embedded player. Until then it renders
- * as a POSTER in the site's ink treatment (same dot grid + gold corner light
- * as InkPanel) with a play glyph and a "coming soon" line, so the hero keeps
- * its shape and nothing looks broken. The poster is a placeholder in the
- * honest, visible sense — it never pretends to be a playable video.
+ * The VSL frame — 16:9, dark, rounded. With VSL_EMBED_URL set it is the
+ * embedded player; until then it is a still of a video player — a dark
+ * poster with a play disc and a scrubber bar at rest. Nothing moves, no
+ * duration is claimed.
  */
 export default function Vsl() {
   return (
-    <div
-      className="relative w-full aspect-video overflow-hidden rounded bg-ink shadow-card border border-accent/25"
-      data-quiet=""
-    >
+    <div className="relative aspect-video w-full overflow-hidden rounded-[28px] bg-gradient-to-b from-[#26231D] via-[#1A1814] to-[#0F0E0C] shadow-[0_30px_60px_rgba(26,24,20,.18)]">
       {VSL_EMBED_URL ? (
         <iframe
           src={VSL_EMBED_URL}
@@ -25,39 +19,27 @@ export default function Vsl() {
           loading="lazy"
         />
       ) : (
-        <>
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage:
-                "radial-gradient(rgba(251,250,247,0.09) 1px, transparent 1.4px)",
-              backgroundSize: "28px 28px",
-            }}
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage:
-                "radial-gradient(55% 45% at 88% -8%, rgba(154,123,63,0.38), transparent 70%), radial-gradient(45% 40% at -5% 108%, rgba(154,123,63,0.16), transparent 70%)",
-            }}
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-            <span
-              aria-hidden="true"
-              className="flex h-16 w-16 items-center justify-center rounded-full border border-accent/60 bg-accent/15"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                className="h-6 w-6 translate-x-[2px] fill-bg"
-              >
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </span>
-            <p className="mono-label text-on-ink-accent">Video coming soon</p>
+        <div aria-hidden="true">
+          {/* the play disc */}
+          <div className="absolute left-1/2 top-1/2 grid h-[76px] w-[76px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white shadow-[0_10px_30px_rgba(0,0,0,.35)]">
+            <span className="ml-1 block h-0 w-0 border-y-[11px] border-l-[18px] border-y-transparent border-l-[#1A1814]" />
           </div>
-        </>
+          {/* the player bar, at rest */}
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent px-5 pb-4 pt-10">
+            <div className="flex items-center gap-3">
+              <span className="block h-0 w-0 border-y-[6px] border-l-[10px] border-y-transparent border-l-white/90" />
+              <div className="relative h-[3px] flex-1 rounded-full bg-white/25">
+                <span className="absolute -top-[4px] left-0 h-[11px] w-[11px] rounded-full bg-white" />
+              </div>
+              <span className="flex items-end gap-[3px]">
+                <i className="block h-2 w-[3px] rounded-sm bg-white/90" />
+                <i className="block h-3 w-[3px] rounded-sm bg-white/90" />
+                <i className="block h-4 w-[3px] rounded-sm bg-white/90" />
+              </span>
+              <span className="grid h-4 w-5 place-items-center rounded-[3px] border-[1.5px] border-white/90" />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

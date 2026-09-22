@@ -1,37 +1,22 @@
 import Link from "next/link";
-import BookingButton from "@/components/landing/BookingButton";
 import { SCAN_URL } from "@/config/brand";
-import { SectionHead } from "@/components/ui/section-head";
+import BookingButton from "@/components/landing/BookingButton";
 
-/**
- * F · Closing — a full-width wash band, the stake in two lines, the same
- * "Book a Strategy Call" the Home page uses, and the scan as the softer
- * door for anyone not ready. Sits directly on the footer.
- */
+/** Closing — on the bottom aurora: the stake, one line, two pills. */
 export default function WwdClosing() {
   return (
-    <section className="bg-surface-2 border-t border-border px-5 py-12 sm:py-16">
-      <div className="max-w-2xl mx-auto text-center">
-        <SectionHead
-          eyebrow="Next step"
-          title="The leads are already coming in."
-          lede={
-            <>
-              The question is how many of them you&apos;re answering fast
-              enough to keep.
-            </>
-          }
-        />
-
-        <div className="mt-8 flex flex-col items-center">
-          <BookingButton />
-          <Link
-            href={SCAN_URL}
-            className="mono-label text-accent-text mt-4 hover:text-ink transition-colors"
-          >
-            Not ready? Run the free scan — 30 seconds, no signup. →
-          </Link>
-        </div>
+    <section className="mx-auto max-w-[1600px] px-5 pb-10 pt-24 text-center sm:px-8 xl:px-12">
+      <h2 className="mx-auto max-w-[26ch] text-ink text-[36px] sm:text-[52px] lg:text-[68px]">
+        The leads are already coming in.
+      </h2>
+      <p className="mx-auto mt-4 max-w-[64ch] text-lg text-muted">
+        The question is how many of them you&apos;re answering fast enough to keep.
+      </p>
+      <div className="mt-7 flex flex-wrap justify-center gap-3">
+        <BookingButton />
+        <Link href={SCAN_URL} className="pill pill--white">
+          Not ready? Run the free scan
+        </Link>
       </div>
     </section>
   );

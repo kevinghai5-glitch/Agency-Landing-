@@ -1,29 +1,25 @@
 import { BOOKING_URL } from "@/config/brand";
+import { cn } from "@/lib/utils";
 
 /**
- * "Book a Strategy Call" — the landing page's ONLY action, used twice (under
- * the VSL and as the closing block). Same GoHighLevel calendar the scan
- * page books into; the label differs because the landing page sells the
- * system directly, while the scan page reaches the same call through the
- * "walkthrough" framing its copy is built around.
- *
- * Server component on purpose: the landing page has no scan state, so
- * nothing to pre-fill — plain link, no context.
+ * "Book a Strategy Call →" — the site's ONE conversion action, a gold pill.
+ * Same GoHighLevel calendar everywhere. Server component: nothing to
+ * pre-fill, plain link. `variant="white"` is the quiet secondary pill.
  */
 export default function BookingButton({
   label = "Book a Strategy Call →",
   className = "",
+  variant = "gold",
 }: {
   label?: string;
   className?: string;
+  variant?: "gold" | "white" | "ink";
 }) {
   if (!BOOKING_URL) {
     // Env not set yet (local dev). Honest and obvious rather than a dead
     // button — the same placeholder pattern used sitewide.
     return (
-      <div
-        className={`w-full max-w-xl rounded border border-dashed border-border bg-surface p-8 text-center ${className}`}
-      >
+      <div className={cn("rounded-[20px] bg-surface px-6 py-4 text-center", className)}>
         <p className="text-muted text-sm">
           Booking button renders here. Set{" "}
           <code className="text-ink">NEXT_PUBLIC_BOOKING_URL</code> to the
@@ -38,7 +34,7 @@ export default function BookingButton({
       href={BOOKING_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center justify-center w-full max-w-xl h-14 rounded-sm bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 transition-opacity ${className}`}
+      className={cn("pill", `pill--${variant}`, className)}
     >
       {label}
     </a>

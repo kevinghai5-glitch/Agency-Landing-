@@ -1,82 +1,45 @@
 "use client";
 
-import { forwardRef } from "react";
-import { cn } from "@/lib/utils";
 import type { Workflow } from "@/config/workflows";
-import DemoPlayer from "./DemoPlayer";
 
 /**
- * One workflow card. The card face is a real <button> (keyboard focusable,
- * accent focus ring, aria-expanded / aria-controls); when open, the card
- * spans both grid columns and the demo plays INLINE beneath the face,
- * pushing the grid down — never a modal, so people can browse several.
- *
- * `highlighted` is the connection-map hover: the map node above lights
- * up its card here.
+ * One workflow card — a compact row at every width (the list item around
+ * it belongs to SwipeRow): the name, one line,
+ * and a small arrow in the corner. It is a real <button> that opens the
+ * demo in the modal (DemoDialog); ten of them take three rows of a
+ * four-column grid, and nothing on the page moves when one opens.
  */
-const WorkflowCard = forwardRef<
-  HTMLButtonElement,
-  {
-    workflow: Workflow;
-    open: boolean;
-    highlighted: boolean;
-    onToggle: () => void;
-    onNavigate: (id: string) => void;
-    panelRef: (el: HTMLDivElement | null) => void;
-  }
->(function WorkflowCard(
-  { workflow, open, highlighted, onToggle, onNavigate, panelRef },
-  ref,
-) {
-  const panelId = `demo-${workflow.id}`;
-  const conditional = workflow.group === "conditional";
-
+export default function WorkflowCard({
+  workflow,
+  onOpen,
+}: {
+  workflow: Workflow;
+  onOpen: () => void;
+}) {
   return (
-    <li
+    <div
       id={`card-${workflow.id}`}
-      className={cn(
-        "flex flex-col rounded bg-surface border transition-colors scroll-mt-24",
-        open && "sm:col-span-2",
-        open || highlighted ? "border-accent" : "border-border",
-        highlighted && !open && "bg-accent-tint",
-      )}
+      className="on-panel flex flex-1 rounded-[22px] bg-surface transition-transform duration-150 ease-out active:scale-[0.985]"
     >
       <button
-        ref={ref}
         type="button"
-        onClick={onToggle}
-        aria-expanded={open}
-        aria-controls={panelId}
-        className="group flex flex-col flex-1 text-left p-5 min-h-[44px] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+        onClick={onOpen}
+        aria-haspopup="dialog"
+        className="group relative flex flex-1 flex-col rounded-[22px] py-4 pl-[18px] pr-14 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface-2"
       >
-        {conditional && (
-          <span className="mono-label text-accent-text inline-flex items-center self-start rounded-full bg-accent-tint px-2.5 py-1 mb-3">
-            Installed by default
-          </span>
-        )}
-        <span className="block font-serif font-semibold text-[19px] leading-snug text-ink">
+        <span className="block text-[15px] font-bold leading-snug tracking-[-0.02em] text-ink">
           {workflow.name}
         </span>
-        <span className="block text-muted text-sm leading-relaxed mt-2">
+        <span className="mt-1 block text-[13px] leading-[1.4] text-muted">
           {workflow.line}
         </span>
-        {conditional && workflow.offCondition && (
-          <span className="block text-muted text-xs leading-relaxed mt-2">
-            Off: {workflow.offCondition}
-          </span>
-        )}
-        <span className="mono-label text-accent-text mt-auto pt-4 group-hover:text-ink transition-colors">
-          {open ? "Close ↑" : "See it run →"}
+        <span
+          aria-hidden="true"
+          className="absolute right-3.5 top-3.5 grid h-7 w-7 place-items-center rounded-full bg-surface-2 text-[13px] font-bold text-ink transition-colors group-hover:bg-accent group-hover:text-surface"
+        >
+          →
         </span>
       </button>
-
-      {open && (
-        <div id={panelId} ref={panelRef} tabIndex={-1} className="focus:outline-none">
-          <DemoPlayer workflow={workflow} onNavigate={onNavigate} onClose={onToggle} />
-        </div>
-      )}
-    </li>
+    </div>
   );
-});
-
-export default WorkflowCard;
+}

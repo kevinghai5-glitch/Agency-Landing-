@@ -2,8 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+/* THE PALETTE — RGB channels so Tailwind's opacity modifiers work
+   (`bg-ink/80`). Light is the documents' palette; dark is the same
+   system on warm charcoal, gold lifted for contrast. The footer toggle
+   (components/ThemeToggle.tsx) sets data-theme on <html>; a tiny script
+   in app/layout.tsx applies the saved choice before first paint. */
 :root {
-  color-scheme: light only;
+  color-scheme: light;
+  --bg: 251 250 247; /* #FBFAF7 */
+  --surface: 255 255 255;
+  --surface-2: 244 242 236; /* #F4F2EC */
+  --panel-2: 236 233 224; /* #ECE9E0 */
+  --ink: 26 24 20; /* #1A1814 */
+  --muted: 107 102 89; /* #6B6659 */
+  /* 4.7:1 against white — the documents' #9A7B3F is 3.98:1, which fails
+     WCAG AA for the white text on every gold pill and bubble. */
+  --accent: 140 111 56; /* #8C6F38 */
+  --accent-text: 126 98 41; /* #7E6229 */
+  --accent-tint: 242 236 221; /* #F2ECDD */
+  --border: 231 227 216; /* #E7E3D8 */
+  --critical: 168 68 59; /* #A8443B */
+  --on-ink-accent: 201 169 97; /* #C9A961 */
+  --on-ink-muted: 165 160 146; /* #A5A092 */
+  --on-ink-rule: 58 54 46; /* #3A362E */
+  /* Surfaces that are tints of white/black rather than tokens. */
+  --panel-fill: 255 255 255 / 0.5;
+  --panel-edge: 255 255 255 / 0.85;
+  --shine: 255 255 255 / 0.42;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: 20 18 15; /* #14120F */
+  --surface: 31 28 23; /* #1F1C17 */
+  --surface-2: 38 34 28; /* #26221C */
+  --panel-2: 51 46 38; /* #332E26 */
+  --ink: 243 239 230; /* #F3EFE6 */
+  --muted: 166 159 143; /* #A69F8F */
+  --accent: 201 169 97; /* #C9A961 — 7.6:1 with ink text on it */
+  --accent-text: 212 181 106; /* #D4B56A */
+  --accent-tint: 51 44 30; /* #332C1E */
+  --border: 58 54 46; /* #3A362E */
+  --critical: 224 122 110;
+  /* "Ink" grounds are cream in the dark theme, so what sits on them flips. */
+  --on-ink-accent: 140 111 56;
+  --on-ink-muted: 107 102 89;
+  --on-ink-rule: 231 227 216;
+  --panel-fill: 255 255 255 / 0.04;
+  --panel-edge: 255 255 255 / 0.08;
+  --shine: 255 255 255 / 0.08;
 }
 
 html {
@@ -11,8 +57,8 @@ html {
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--ink);
+  background-color: rgb(var(--bg));
+  color: rgb(var(--ink));
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   /* Every time, count and duration on the site sits in a fixed-width
@@ -20,27 +66,284 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-@layer components {
-  /* The mono label — the one ingredient the brochure version was missing.
-     Eyebrows, section numbers, label/value labels, timestamps, status
-     pills, column headers, ghost-button text. NEVER body copy.
-     Colour is set at the use site: text-accent-text on light grounds,
-     text-on-ink-accent on ink. */
-  .mono-label {
-    font-family: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
-    font-size: 10.5px;
-    line-height: 1.4;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    font-variant-numeric: tabular-nums;
+@layer base {
+  /* Plus Jakarta Sans at display sizes wants tight tracking — every heading
+     is weight 600 with -.03em, the approved mock's setting. */
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    text-wrap: balance;
   }
 }
 
-/* Big scorecard numbers: serif, gold, tabular figures. */
+@layer components {
+  /* The small label — a short caption over a card, a timestamp, a column
+     head. Plain, semibold, no caps, no tracking; colour set at the use
+     site. (Class name is historical.) */
+  .mono-label {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The pill button. gold = the door, white = the quiet second option,
+     ink = navigation-ish actions ("See all fifteen"). */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 24px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+  .pill:hover {
+    transform: translateY(-1px);
+  }
+  .pill:focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+  }
+  .pill--gold {
+    background: rgb(var(--accent));
+    color: rgb(var(--surface));
+  }
+  .pill--white {
+    background: rgb(var(--surface));
+    color: rgb(var(--ink));
+    box-shadow: 0 1px 2px rgba(26, 24, 20, 0.06);
+  }
+  .pill--ink {
+    background: rgb(var(--ink));
+    color: rgb(var(--bg));
+  }
+
+  /* The label above a heading — small caps, gold, no container. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgb(var(--accent-text));
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* The big panel and the cards inside it. Depth comes from nesting tints,
+     never from borders. */
+  /* Frosted, not painted: a translucent white so the aurora shows
+     through, with a hairline highlight and a soft drop shadow to read as
+     a sheet lying on the ground. No backdrop blur (per-frame cost). */
+  .panel {
+    background: rgb(var(--panel-fill));
+    box-shadow:
+      inset 0 0 0 1px rgb(var(--panel-edge)),
+      0 1px 2px rgba(26, 24, 20, 0.03),
+      0 24px 60px rgba(26, 24, 20, 0.06);
+    border-radius: 44px;
+    padding: 40px;
+  }
+  :root[data-theme="dark"] .panel {
+    box-shadow:
+      inset 0 0 0 1px rgb(var(--panel-edge)),
+      0 24px 60px rgba(0, 0, 0, 0.35);
+  }
+  /* A white card lying on a frosted panel: a whisper of edge and a soft
+     lift, so it stands off the sheet instead of dissolving into it. */
+  .on-panel {
+    box-shadow:
+      0 0 0 1px rgba(26, 24, 20, 0.04),
+      0 1px 2px rgba(26, 24, 20, 0.04),
+      0 12px 32px rgba(26, 24, 20, 0.07);
+  }
+  :root[data-theme="dark"] .on-panel {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 12px 32px rgba(0, 0, 0, 0.35);
+  }
+  @media (max-width: 640px) {
+    .panel {
+      border-radius: 32px;
+      padding: 24px;
+    }
+  }
+}
+
+/* The "Built for" ticker (components/landing/TradesTicker.tsx): the track
+   holds two identical runs and slides -50%, so the loop is seamless. One
+   transform, compositor-only — nothing repaints per frame. It never
+   pauses (not on hover either); reduced-motion stops it and lets the row
+   scroll by hand. */
+.ticker-mask {
+  mask-image: linear-gradient(to right, transparent 0, #000 32px, #000 calc(100% - 64px), transparent 100%);
+}
+.ticker-track {
+  /* Holds for 2s on load so the lead chips are read before it moves. */
+  animation: ticker 20s linear 2s infinite;
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-mask {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .ticker-track {
+    animation: none;
+  }
+}
+
+/* The demo modal (components/what-we-do/DemoDialog.tsx): a native
+   <dialog> in the top layer. Centred over a dimmed page; below sm it is a
+   bottom sheet. The page behind it stops scrolling while it is open. */
+.demo-dialog {
+  width: min(1000px, calc(100vw - 48px));
+  max-width: none;
+  max-height: calc(100dvh - 48px);
+  padding: 0;
+  border: 0;
+  border-radius: 28px;
+  background: rgb(var(--surface));
+  color: rgb(var(--ink));
+  overflow: auto;
+  box-shadow: 0 40px 80px rgba(26, 24, 20, 0.28);
+}
+:root[data-theme="dark"] .demo-dialog {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 40px 80px rgba(0, 0, 0, 0.6);
+}
+.demo-dialog::backdrop {
+  background: rgba(26, 24, 20, 0.45);
+  animation: backdrop-in 0.35s ease-out both;
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-dialog::backdrop {
+    animation: none;
+  }
+}
+@media (max-width: 640px) {
+  .demo-dialog {
+    width: 100vw;
+    max-height: 94dvh;
+    margin: auto 0 0;
+    border-radius: 28px 28px 0 0;
+  }
+}
+html.demo-open {
+  overflow: hidden;
+}
+
+/* TILT & SHINE (components/ui/tilt-card.tsx) — the home page's card hover.
+   The card rotates on --rx/--ry; the shine is one oversized layer with a
+   fixed radial highlight, translated by --sx/--sy so it is never repainted.
+   Both are compositor work only. Desktop pointers only. */
+.tilt {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.12s linear, box-shadow 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.tilt.is-leaving {
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.tilt::after {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(420px circle at center, rgb(var(--shine)), rgba(255, 255, 255, 0) 70%);
+  transform: translate(var(--sx, 0px), var(--sy, 0px));
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tilt:hover {
+    box-shadow: 0 30px 60px rgba(26, 24, 20, 0.2);
+  }
+  .tilt:hover::after {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tilt,
+  .tilt.is-leaving {
+    transform: none;
+    transition: none;
+  }
+  .tilt::after {
+    display: none;
+  }
+}
+
+/* A scroll row with no visible bar — the swipe rows (components/ui/
+   swipe-row.tsx) show position with dots instead. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* The aurora ground has a light and a dark render (components/ui/
+   aurora-ground.tsx); the theme picks one. */
+.aurora-dark {
+  display: none;
+}
+:root[data-theme="dark"] .aurora-light {
+  display: none;
+}
+:root[data-theme="dark"] .aurora-dark {
+  display: block;
+}
+
+/* Page transition (app/template.tsx): the incoming page fades up. Runs
+   once per navigation, never on scroll, never on the page itself. */
+.page-enter {
+  animation: page-enter 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter {
+    animation: none;
+  }
+}
+
+/* Big scorecard numbers: bold, gold, tabular figures. */
 .stat-number {
-  font-family: var(--font-serif), Georgia, serif;
-  font-weight: 400;
-  color: var(--accent);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: rgb(var(--accent));
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }
@@ -60,7 +363,7 @@ body {
 }
 
 /* Checklist tick reveal — a single restrained transition, no bounce. Also
-   used by the workflow demo player for each step as it lands. */
+   used by the demo panel beats on /what-we-do as each lands. */
 @keyframes tick-in {
   from {
     opacity: 0;
@@ -76,6 +379,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    animation: none;
+  }
   html {
     scroll-behavior: auto;
   }

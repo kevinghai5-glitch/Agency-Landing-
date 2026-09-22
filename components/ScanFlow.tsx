@@ -61,11 +61,11 @@ export default function ScanFlow() {
         <div className="w-full">
           <ScanForm onSubmit={runScan} idPrefix="hero" />
           {result && (
-            <div className="max-w-xl mx-auto mt-4 text-center">
+            <div className="mt-4 text-center">
               <button
                 type="button"
                 onClick={viewPrevious}
-                className="mono-label text-accent-text hover:text-ink transition-colors"
+                className="text-sm font-semibold text-accent-text hover:text-ink transition-colors"
               >
                 View your previous scan →
               </button>
@@ -77,15 +77,15 @@ export default function ScanFlow() {
       {phase === "scanning" && <ScanChecklist />}
 
       {phase === "error" && (
-        <div className="w-full max-w-xl mx-auto">
-          <p className="text-ink text-base text-center mb-4">{errorMsg}</p>
+        <div className="w-full">
+          <p className="text-ink text-base mb-4">{errorMsg}</p>
           <ScanForm onSubmit={runScan} idPrefix="retry" />
           {result && (
             <div className="max-w-xl mx-auto mt-4 text-center">
               <button
                 type="button"
                 onClick={viewPrevious}
-                className="mono-label text-accent-text hover:text-ink transition-colors"
+                className="text-sm font-medium text-accent-text hover:text-ink transition-colors"
               >
                 View your previous scan →
               </button>
@@ -96,11 +96,11 @@ export default function ScanFlow() {
 
       {phase === "results" && result && findings && (
         <div className="w-full animate-tick-in">
-          <div className="max-w-2xl mx-auto mb-4" data-quiet="">
+          <div className="mx-auto mb-4 w-full max-w-3xl">
             <button
               type="button"
               onClick={handleReset}
-              className="mono-label text-accent-text hover:text-ink transition-colors"
+              className="text-sm font-semibold text-accent-text hover:text-ink transition-colors"
             >
               ← Scan another site
             </button>

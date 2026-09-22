@@ -35,10 +35,9 @@ export default function BookCall({
     <section
       className={
         isInline
-          ? "w-full max-w-2xl mx-auto mt-8"
-          : "w-full max-w-2xl mx-auto px-5 py-8 sm:py-10"
+          ? "mx-auto mt-8 w-full max-w-3xl"
+          : "mx-auto w-full max-w-3xl px-5 pb-10 pt-24 text-center"
       }
-      data-quiet=""
     >
       {isInline ? (
         <p className="text-ink text-base sm:text-lg leading-relaxed text-center max-w-xl mx-auto">
@@ -65,14 +64,14 @@ export default function BookCall({
             href={buildBookingUrl(BOOKING_URL, known)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-full max-w-xl h-14 rounded-sm bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 transition-opacity"
+            className="pill pill--gold"
           >
             Book the 15-minute walkthrough →
           </a>
         ) : (
           // Env not set yet (local dev). Honest and obvious rather than a
           // dead button — mirrors the placeholder pattern used sitewide.
-          <div className="w-full max-w-xl rounded border border-dashed border-border bg-surface p-8 text-center">
+          <div className="w-full max-w-xl rounded-[20px] bg-surface p-6 text-center">
             <p className="text-muted text-sm">
               Booking button renders here. Set{" "}
               <code className="text-ink">NEXT_PUBLIC_BOOKING_URL</code> to the

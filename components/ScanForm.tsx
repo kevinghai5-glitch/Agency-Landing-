@@ -49,11 +49,10 @@ export default function ScanForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-xl mx-auto"
+      className="w-full"
       noValidate
-      data-quiet=""
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2.5">
         <div className="flex flex-col gap-1">
           <label htmlFor={nameId} className="sr-only">
             Business name
@@ -67,7 +66,7 @@ export default function ScanForm({
             placeholder="Business name"
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
-            className="w-full h-14 px-4 rounded bg-surface border border-border text-ink placeholder:text-muted text-base outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+            className="h-14 w-full rounded-full bg-surface px-6 text-base font-medium text-ink shadow-soft outline-none placeholder:text-[#9A968C] focus:ring-2 focus:ring-accent transition-shadow"
           />
         </div>
 
@@ -83,7 +82,7 @@ export default function ScanForm({
             placeholder="Website (e.g. yourbusiness.com)"
             value={website}
             onChange={(e) => setWebsite(e.target.value)}
-            className="w-full h-14 px-4 rounded bg-surface border border-border text-ink placeholder:text-muted text-base outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+            className="h-14 w-full rounded-full bg-surface px-6 text-base font-medium text-ink shadow-soft outline-none placeholder:text-[#9A968C] focus:ring-2 focus:ring-accent transition-shadow"
           />
           {touched && !websiteValid && (
             <p className="text-sm text-muted mt-1">
@@ -95,15 +94,12 @@ export default function ScanForm({
         <button
           type="submit"
           disabled={pending}
-          className="w-full h-14 rounded-sm bg-accent text-surface font-medium text-base tracking-tight hover:opacity-90 active:opacity-100 disabled:opacity-60 disabled:cursor-not-allowed transition-opacity"
+          className="pill pill--gold h-14 w-full disabled:cursor-not-allowed disabled:opacity-60"
         >
           {pending ? "Running your scan…" : "Run my free scan →"}
         </button>
       </div>
 
-      <p className="mono-label text-accent-text text-center mt-3">
-        Free · no sales pitch · 30 seconds · no signup to see your results.
-      </p>
     </form>
   );
 }

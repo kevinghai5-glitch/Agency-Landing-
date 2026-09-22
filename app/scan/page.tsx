@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
 import { BRAND_NAME } from "@/config/brand";
 import { ScanProvider } from "@/components/ScanContext";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import PageBody from "@/components/PageBody";
 import Hero from "@/components/Hero";
-import Reframe from "@/components/Reframe";
-import Walkthrough from "@/components/Walkthrough";
-import HowItWorks from "@/components/HowItWorks";
-import WhatTheCallIs from "@/components/WhatTheCallIs";
-import WhyTrust from "@/components/WhyTrust";
 import Faq from "@/components/Faq";
-import FinalCta from "@/components/FinalCta";
 import BookCall from "@/components/BookCall";
 
 export const metadata: Metadata = {
@@ -27,16 +20,14 @@ export const metadata: Metadata = {
  *
  * It has TWO MODES (see components/PageBody):
  *
- * PITCH (nobody has scanned yet) — the marketing case, on the aurora
- * surface. Section order is FIXED — do not reorder.
+ * PITCH (nobody has scanned yet) — deliberately just the hero: the
+ * question, one line, the two-field form, centred, then the footer.
+ * Nothing else. (How-it-works, the quiz teaser, the FAQ and the closing
+ * CTA used to sit under it; they were cut so the page is one thing.)
  *
  * REPORT (a scan completed) — the page becomes a document about THEIR
- * business, on plain paper. Sections that argue for running a scan are gone:
- * the reframe (already proven with their data), "how it works" (steps 1–2
- * are done), "what the walkthrough covers" (the quiz's transformation block
- * does that job better), and the repeat scan form (they're holding results).
- * What survives is what still stands between them and booking:
- * qualification → the remaining objections → the founder → one door.
+ * business, on plain paper: the results, then what still stands between
+ * them and booking — the remaining objections → one door.
  *
  * The hero is in both modes: pre-scan it's the headline + form, post-scan it
  * becomes the identity header + the full results (scorecard → recurrence →
@@ -65,25 +56,11 @@ export default function Page() {
         <Hero />
 
         <PageBody
-          pitch={
-            <AuroraBackground>
-              <Reframe />
-              <Walkthrough />
-              <HowItWorks />
-              <WhatTheCallIs />
-              <WhyTrust />
-              <Faq />
-              <FinalCta />
-            </AuroraBackground>
-          }
+          pitch={null}
           report={
             <>
-              {/* The qualification filter — matters more now, not less. */}
-              <WhatTheCallIs />
               {/* Only the objections that still block a booking. */}
               <Faq mode="report" />
-              {/* The face, last thing before the door. */}
-              <WhyTrust />
               {/* The ONE action on the post-scan page. */}
               <BookCall />
             </>

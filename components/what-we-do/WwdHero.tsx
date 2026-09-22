@@ -1,32 +1,28 @@
-import KineticGrid from "@/components/ui/kinetic-grid";
-import { Eyebrow } from "@/components/ui/eyebrow";
+import Link from "next/link";
+import { SCAN_URL } from "@/config/brand";
+import BookingButton from "@/components/landing/BookingButton";
 
-/**
- * /what-we-do hero — the h1 and intro paragraph, unchanged in wording,
- * on the same KineticGrid "paper" surface the Home and /scan heroes use so
- * the three pages read as one site. The one line under it states breadth
- * without narrowing to a list of verticals (a list costs inbound).
- */
+/** /what-we-do hero — text only: headline, one line, two pills. */
 export default function WwdHero() {
   return (
-    <KineticGrid globalColor="paper" quietSelector="[data-quiet]">
-      <section className="px-5 pt-12 pb-10 sm:pt-16 sm:pb-12">
-        <div className="max-w-2xl mx-auto text-center" data-quiet="">
-          <Eyebrow>The system</Eyebrow>
-          <h1 className="font-serif font-light text-3xl sm:text-5xl leading-[1.1] tracking-tight text-ink text-balance">
-            What we do
-          </h1>
-          <p className="text-ink text-lg sm:text-xl leading-relaxed mt-5 max-w-xl mx-auto text-balance">
-            A full-time AI system, installed into your business, that
-            responds to, follows up with, and converts the leads you already
-            get — around the clock.
-          </p>
-          <p className="text-muted text-base sm:text-lg leading-relaxed mt-4 max-w-xl mx-auto text-balance">
-            Home exterior and emergency service — if a missed call costs you
-            a job, this applies.
-          </p>
+    <section className="mx-auto max-w-[1600px] px-5 pb-8 pt-6 sm:px-8 xl:px-12 sm:pb-10 sm:pt-10">
+      <div>
+        <h1 className="max-w-[20ch] text-ink text-[40px] sm:text-[52px] lg:text-[66px]">
+          A full-time AI system that answers{" "}
+          <em className="not-italic text-accent">every enquiry</em> you already
+          get — around the clock.
+        </h1>
+        <p className="mt-6 max-w-[40ch] text-[19px] leading-[1.45] text-muted">
+          Installed into your business. Built for home exterior and emergency
+          service businesses — if a missed call costs you a job, this applies.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <BookingButton />
+          <Link href={SCAN_URL} className="pill pill--white">
+            Or run the free scan
+          </Link>
         </div>
-      </section>
-    </KineticGrid>
+      </div>
+    </section>
   );
 }

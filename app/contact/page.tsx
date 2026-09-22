@@ -30,9 +30,10 @@ export const metadata: Metadata = {
  */
 export default function ContactPage() {
   return (
-    <main className="px-5 py-12 sm:py-16">
+    <main>
+      <div className="px-5 py-12 sm:py-16">
       <div className="max-w-2xl mx-auto">
-        <h1 className="font-serif text-3xl sm:text-4xl leading-tight tracking-tight text-ink">
+        <h1 className="font-sans font-bold text-3xl sm:text-4xl leading-tight tracking-tight text-ink">
           Contact
         </h1>
         <p className="text-muted text-base leading-relaxed mt-5 max-w-xl">
@@ -76,6 +77,7 @@ export default function ContactPage() {
           </Link>
         </div>
       </div>
+    </div>
     </main>
   );
 }

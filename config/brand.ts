@@ -98,7 +98,7 @@ export const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=${encodeURICompon
  * Kevin's real headshot, committed at /public/founder.png — a plain static
  * asset, no env var. (The old env indirection existed only so a placeholder
  * avatar could never ship silently; with a real photo in the repo it was
- * pure friction.) Consumed by: components/WhyTrust.tsx (founder block).
+ * pure friction.) Consumed by: components/founder/* (/meet-the-founder).
  */
 export const FOUNDER_PHOTO = "/founder.png";
 
@@ -133,21 +133,24 @@ export const CONTACT_URL = "/contact";
 export const TEXT_US_URL = "/text-us";
 
 /**
- * THE THREE FUNNEL PAGES — the nav bar (components/Nav.tsx) is exactly these,
- * in this order. Outreach links to whichever one fits where the prospect is:
+ * THE NAV PAGES — the nav bar (components/Nav.tsx) is exactly these, in
+ * this order. Outreach links to whichever one fits where the prospect is:
  *
  *   HOME_URL        the VSL landing page — headline, video, book a call.
- *   WHAT_WE_DO_URL  what gets installed. (Content pending — stub page.)
+ *   WHAT_WE_DO_URL  what gets installed — the fifteen workflows and the map.
  *   SCAN_URL        the free scan + internal-leaks quiz (the old home page).
+ *   FOUNDER_URL     who you're talking to — Kevin, the photo, LinkedIn.
  */
 export const HOME_URL = "/";
 export const WHAT_WE_DO_URL = "/what-we-do";
 export const SCAN_URL = "/scan";
+export const FOUNDER_URL = "/meet-the-founder";
 
 export const NAV_LINKS = [
   { href: HOME_URL, label: "Home" },
   { href: WHAT_WE_DO_URL, label: "What we do" },
   { href: SCAN_URL, label: "Free scan + quiz" },
+  { href: FOUNDER_URL, label: "Meet the founder" },
 ] as const;
 
 /**
