@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 /**
  * /what-we-do — the approved mock:
  *
- *   Hero       text only: h1 + one line + Book a Strategy Call / run the scan
+ *   Hero       text only: h1 + one line + Book a demo / run the scan
  *   Installed  one panel: ten cards, then five conditional — each opens its
  *              demo INLINE (Board.tsx → WorkflowCard → DemoPanel)
  *   The map    five ways in → one chain → the pipeline (FitsTogether)

@@ -17,8 +17,6 @@ import LandingFinalCta from "@/components/landing/LandingFinalCta";
  *      workflows card with "See all fifteen →".
  *   5. Close — one line, one gold pill, on the bottom aurora.
  *
- * The founder block ("I'm Kevin") has its own page now — /meet-the-founder,
- * in the nav.
  *
  * No forms of any kind on this page (the scene's "form" is drawn).
  * Copy rules carry over: no invented dollar figures, no pricing, no

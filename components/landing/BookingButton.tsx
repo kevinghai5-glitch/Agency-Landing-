@@ -2,12 +2,12 @@ import { BOOKING_URL } from "@/config/brand";
 import { cn } from "@/lib/utils";
 
 /**
- * "Book a Strategy Call →" — the site's ONE conversion action, a gold pill.
+ * "Book a demo →" — the site's ONE conversion action, a gold pill.
  * Same GoHighLevel calendar everywhere. Server component: nothing to
  * pre-fill, plain link. `variant="white"` is the quiet secondary pill.
  */
 export default function BookingButton({
-  label = "Book a Strategy Call →",
+  label = "Book a demo →",
   className = "",
   variant = "gold",
 }: {

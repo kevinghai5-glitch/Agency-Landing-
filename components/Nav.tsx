@@ -11,11 +11,11 @@ import { cn } from "@/lib/utils";
  * the root layout, sitting TRANSPARENT on the aurora ground.
  *
  * md and up: wordmark left; the links as a translucent pill group with the
- * current page lifted white; an ink pill "Book a call" on the right (the
+ * current page lifted white; an ink pill "Book a demo" on the right (the
  * approved mock's layout).
  *
  * Below md: wordmark left, a "Menu" pill right. The menu opens as a white
- * card under the bar with the four links as rows and "Book a call" at the
+ * card under the bar with the three links as rows and "Book a demo" at the
  * bottom — four labels don't fit a phone as a pill row, and a horizontal
  * scroller hides the pages it exists to show. Closes on navigation and on
  * Escape. Client component for `usePathname` and the open state.
@@ -55,7 +55,7 @@ export default function Nav() {
           {BRAND_NAME}
         </Link>
 
-        {/* md+: the pill group and Book a call */}
+        {/* md+: the pill group and Book a demo */}
         <div className="hidden items-center gap-3 md:flex">
           <ul className="flex items-center gap-1 rounded-full bg-surface/55 p-1 backdrop-blur-sm">
             {NAV_LINKS.map(({ href, label }) => {
@@ -83,7 +83,7 @@ export default function Nav() {
               rel="noopener noreferrer"
               className="hidden items-center whitespace-nowrap rounded-full bg-ink px-[18px] py-[11px] text-sm font-semibold text-bg transition-opacity hover:opacity-90 lg:inline-flex"
             >
-              Book a call
+              Book a demo
             </a>
           )}
         </div>
@@ -148,7 +148,7 @@ export default function Nav() {
             rel="noopener noreferrer"
             className="mt-2 flex items-center justify-center rounded-full bg-ink px-[18px] py-3.5 text-[15px] font-semibold text-bg"
           >
-            Book a call
+            Book a demo
           </a>
         )}
       </div>

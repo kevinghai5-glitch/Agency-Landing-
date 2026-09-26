@@ -83,9 +83,9 @@ export default function RootLayout({
             or SMS OPT-IN CONSENT on any page carrying the widget. The only
             form on this site is the scan form on /scan (business name +
             website) — it collects neither, so the attestation holds
-            site-wide. The landing page (/), /what-we-do and
-            /meet-the-founder have no forms at all. Do not add a phone or
-            consent field to any page without moving this.
+            site-wide. The landing page (/) and /what-we-do have no forms
+            at all. Do not add a phone or consent field to any page
+            without moving this.
 
             The attributes are GHL's embed snippet verbatim (src,
             data-resources-url, data-widget-id) — how the bubble behaves
